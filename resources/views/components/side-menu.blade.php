@@ -1,6 +1,6 @@
-<div class="w-full">
+<nav class="sticky-top">
     <h1>hi</h1>
     <h1>hi</h1>
     <h1>hi</h1>
     <h2>not long text</h2>
-</div>
+</nav>
