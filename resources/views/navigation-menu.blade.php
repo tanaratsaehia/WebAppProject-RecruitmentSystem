@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="ml-16 md:ml-64 bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -21,7 +21,7 @@
                 <!-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     </div> -->
                 
-                <h1 class="mt-4 text-2xl font-medium text-gray-900">{{ $_SESSION['currentPage'] }}</h1>
+                <h1 class="mt-4 text-2xl font-medium text-gray-900">{{ $_SESSION['currentPage'] ?? "Page Name not set"}}</h1>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
