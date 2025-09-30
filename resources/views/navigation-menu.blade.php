@@ -1,8 +1,8 @@
 <nav x-data="{ open: false }" class=" bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="">
-        <div class="flex justify-between h-16">
-            <div class="flex">
+    <div class="mt-4">
+        <div class="flex justify-between">
+            <div class="">
                 
                 <!-- <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
@@ -21,7 +21,7 @@
                 <!-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     </div> -->
                 
-                <h1 class="mt-4 text-2xl font-medium text-gray-900">{{ $_SESSION['currentPage'] ?? "Page Name not set"}}</h1>
+                <h1 class="ms-3 text-2xl font-medium text-gray-900">{{ $_SESSION['currentPage'] ?? "Page Name not set"}}</h1>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">

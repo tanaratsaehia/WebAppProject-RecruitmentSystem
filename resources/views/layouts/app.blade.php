@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Join US!</title>
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Latest compiled JavaScript -->
@@ -13,12 +13,12 @@
 </head>
 <body>
     <div class="container-fluid row align-items-start vh-100 p-0 m-0">
-        <div class="col h-100 border">
+        <div class="col h-100 bg-secondary">
             <x-side-menu/>
         </div>
 
         <div class="col-10 h-100">
-            <div class="row w-fit border sticky-top">
+            <div class="row border sticky-top h-20">
                 @livewire('navigation-menu') 
             </div>
             <div class="row w-fit border mt-0 mb-10 fixed-height-viewpoint">
