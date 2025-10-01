@@ -9,12 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void {
-        Schema::create('job_openings', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('search_tag_names', function (Blueprint $table) {
             $table->id();
-            $table->string('job_title');
-            $table->string('description')->nullable();
-            $table->text('skill_required');
+            $table->string('tag_name');
             $table->timestamps();
         });
     }
@@ -22,7 +21,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void{
-        Schema::dropIfExists('job_openings');
+    public function down(): void
+    {
+        Schema::dropIfExists('search_tag_names');
     }
 };
