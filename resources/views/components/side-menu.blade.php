@@ -31,13 +31,13 @@
             <div class="w-100 ps-2 mt-2">
                 <a href="#" class="p-0 m-0 w-100">
                     <div class="h-16 d-flex align-items-center">
-                        <img src="{{ asset('images/admin_icon_white.png') }}" alt="" width="9%" class="ms-3">
+                        <img src="{{ asset('images/paper_icon_white.png') }}" alt="" width="9%" class="ms-3">
                         <p class="ms-3 text-2xl fs-5 text-white">Resume Viewer</p>
                     </div>
                 </a>
             </div>
-            <div class="w-100 ps-2 mt-2">
-                <a href="#" class="p-0 m-0 w-100">
+            <div class="{{ request()->routeIs('edit-hiring-job') ? 'bg-primary' : '' }} w-100 ps-2 mt-2">
+                <a href="{{ route('edit-hiring-job') }}" class="p-0 m-0 w-100">
                     <div class="h-16 d-flex align-items-center">
                         <img src="{{ asset('images/paper_and_pencil_icon_white.png') }}" alt="" width="10%" class="ms-3">
                         <p class="ms-3 text-2xl fs-5 text-white">Edit Hiring Jobs</p>

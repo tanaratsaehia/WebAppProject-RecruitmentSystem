@@ -26,6 +26,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/edit-hiring-job', function () {
+        return view('edit-hiring-job');
+    })->name('edit-hiring-job');
 });
 
 Route::get('/testing', function () {
