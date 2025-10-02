@@ -22,7 +22,7 @@
                 @livewire('navigation-menu') 
             </div>
             <div class="row w-fit border mt-0 mb-10 fixed-height-viewpoint">
-                <main>
+                <main class="p-0">
                     <!-- <h1>Hi</h1> -->
                     {{ $slot }}
                 </main>
