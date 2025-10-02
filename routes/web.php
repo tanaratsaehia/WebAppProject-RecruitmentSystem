@@ -31,6 +31,10 @@ Route::middleware([
         return view('home');
     })->name("home");
 
+    Route::get('/home/upload-resume/{id}', function($id){
+        return view('upload-resume', compact('id'));
+    })->name('home.upload-resume');
+
     Route::get('/edit-hiring-job', function () {
         return view('edit-hiring-job');
     })->name('edit-hiring-job');

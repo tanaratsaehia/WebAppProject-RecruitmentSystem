@@ -24,6 +24,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card m-md-4" style="width: 70rem;">
+                <?php $id = 1;?>
                 <div class="card-body">
 
                     <h1 class="card-title fs-2 fw-bold">
@@ -39,11 +40,12 @@
                     </ul>
 
                     <div class="col-12 d-flex justify-content-center mt-3">
-                        <a href="#" class="btn btn-outline-primary border-dark text-dark col-12 fw-bold fs-5">สมัครเลย</a>
+                        <a href="{{ route('home.upload-resume', $id) }}" class="btn btn-outline-primary border-dark text-dark col-12 fw-bold fs-5">สมัครเลย</a>
                     </div>
                 </div>
             </div>
             <div class="card m-md-4" style="width: 70rem;">
+                <?php $id = 2; ?>
                 <div class="card-body">
 
                     <h1 class="card-title fs-2 fw-bold">
@@ -59,7 +61,8 @@
                     </ul>
 
                     <div class="col-12 d-flex justify-content-center mt-3">
-                        <a href="#" class="btn btn-outline-primary border-dark text-dark col-12 fw-bold fs-5">สมัครเลย</a>
+                        <a href="{{ route('home.upload-resume', $id) }}" class="btn border-dark text-dark col-12 fw-bold fs-5">สมัครเลย</a>
+
                     </div>
                 </div>
             </div>
