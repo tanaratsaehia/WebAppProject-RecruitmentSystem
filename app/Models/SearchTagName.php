@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\SearchTag;
+use App\Models\JobOpening;
 
 class SearchTagName extends Model
 {
     use HasFactory;
 
-    public function searchTag(){
-        return $this->hasMany(SearchTag::class);
+    public function jobOpening(){
+        return $this->belongsToMany(JobOpening::class);
     }
 }
