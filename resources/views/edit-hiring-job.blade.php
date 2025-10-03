@@ -99,13 +99,11 @@
 
             if (saveButton && form) {
                 saveButton.addEventListener('click', function (e) {
-                    // 1. Check HTML5 validation first
                     if (!form.checkValidity()) {
                         form.reportValidity();
-                        return; // Stop execution if validation fails
+                        return;
                     }
                     
-                    // 2. Trigger SweetAlert2
                     Swal.fire({
                         title: "บันทึกการเปลี่ยนแปลง?",
                         text: "คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่",
@@ -116,12 +114,9 @@
                         confirmButtonText: "บันทึก",
                         cancelButtonText: "ยกเลิก"
                     }).then((result) => {
-                        // 3. Check for confirmation
                         if (result.isConfirmed) {
-                            // If confirmed, manually submit the form
                             form.submit();
                         } else {
-                            // User cancelled, do nothing, the form remains open.
                         }
                     });
                 });
@@ -139,13 +134,12 @@
                     html: `คุณแน่ใจหรือไม่ที่จะลบงาน: <strong>${jobTitle}</strong>? <br> การดำเนินการนี้ไม่สามารถย้อนกลับได้`,
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#d33", // Red for Delete
+                    confirmButtonColor: "#d33",
                     cancelButtonColor: "#3085d6",
                     confirmButtonText: "ใช่, ลบทันที!",
                     cancelButtonText: "ยกเลิก"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Manually submit the specific delete form
                         document.getElementById(formId).submit();
                     }
                 });
