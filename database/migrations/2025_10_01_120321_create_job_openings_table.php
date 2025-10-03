@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->text('skill_required');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

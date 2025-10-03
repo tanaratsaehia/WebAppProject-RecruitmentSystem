@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobOpeningController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,14 +29,14 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/home', [HomeController::class,'index'])->name("home");
+    Route::get('/edit-hiring-job', [JobOpeningController::class,'index'])->name("edit-hiring-job");
+    Route::get('/edit-hiring-job/{id}', [JobOpeningController::class,'editJob'])->name("edit-hiring-job.edit");
+    Route::post('/edit-hiring-job', [JobOpeningController::class,'saveEditedJob'])->name("edit-hiring-job.save");
+    Route::delete('/edit-hiring-job/delete/{id}', [JobOpeningController::class,'deleteJob'])->name("edit-hiring-job.delete");
 
     Route::get('/home/upload-resume/{id}', function($id){
         return view('upload-resume', compact('id'));
     })->name('home.upload-resume');
-
-    Route::get('/edit-hiring-job', function () {
-        return view('edit-hiring-job');
-    })->name('edit-hiring-job');
 });
 
 Route::get('/testing', function () {
