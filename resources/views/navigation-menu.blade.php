@@ -21,7 +21,7 @@
                 <!-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     </div> -->
                 
-                <h1 class="ms-3 text-2xl font-medium text-gray-900">{{ $_SESSION['currentPage'] ?? "Page Name not set"}}</h1>
+                <h1 class="ms-3 text-2xl font-medium text-gray-900">{{ $_SESSION['currentPage'] ?? ""}}</h1>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">

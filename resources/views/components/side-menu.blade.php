@@ -1,6 +1,6 @@
 <nav class="sticky-top flex row">
     <div class="h-20 ms-3 mt-4 d-flex">
-        <img src="{{ asset('images/side_bar_logo_white.png') }}" alt="" width="25%">
+        <img src="{{ asset('images/side_bar_logo_white.png') }}" alt="" style="width: 25%; height: 100%;">
         <div class="d-flex align-items-center">
             <p class="ms-3 text-2xl fs-4 text-white">Resume Parsing</p>
         </div>
@@ -36,8 +36,8 @@
         @endif
 
         @if (auth()->user()->role == "hr" || auth()->user()->role == "superHR")
-            <div class="w-100 ps-2 mt-2">
-                <a href="#" class="p-0 m-0 w-100">
+            <div class="{{ request()->routeIs('resume-viewer') || request()->routeIs('resume-viewer.*') ? 'bg-primary' : '' }} w-100 ps-2 mt-2">
+                <a href="{{ route('resume-viewer') }}" class="p-0 m-0 w-100">
                     <div class="h-16 d-flex align-items-center">
                         <img src="{{ asset('images/paper_icon_white.png') }}" alt="" width="9%" class="ms-3">
                         <p class="ms-3 text-2xl fs-5 text-white">Resume Viewer</p>
