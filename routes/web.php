@@ -32,6 +32,7 @@ Route::middleware([
     Route::get('/edit-hiring-job', [JobOpeningController::class,'index'])->name("edit-hiring-job");
     Route::get('/edit-hiring-job/{id}', [JobOpeningController::class,'editJob'])->name("edit-hiring-job.edit");
     Route::post('/edit-hiring-job', [JobOpeningController::class,'saveEditedJob'])->name("edit-hiring-job.save");
+    Route::post('/edit-hiring-job/add', [JobOpeningController::class,'addJob'])->name("edit-hiring-job.add");
     Route::delete('/edit-hiring-job/delete/{id}', [JobOpeningController::class,'deleteJob'])->name("edit-hiring-job.delete");
 
     Route::get('/home/upload-resume/{id}', function($id){
