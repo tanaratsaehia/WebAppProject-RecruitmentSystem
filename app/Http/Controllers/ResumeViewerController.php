@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\JobOpening;
 
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class ResumeViewerController extends Controller
     }
 
     public function unread(){
-        return view('unread-resume');
+        $all_job_opening = JobOpening::all();
+        return view("unread-resume", compact("all_job_opening"));
     }
 
     public function marked(){
