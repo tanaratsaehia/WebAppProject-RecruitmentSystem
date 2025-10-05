@@ -82,79 +82,80 @@
             @endforelse
         </div>
     </div>
-    <script>
-        @if (session('updated_job_title'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                html: 'บันทึกงาน <strong>{{session('updated_job_title')}}</strong> เรียบร้อยแล้ว',
-                confirmButtonText: "ยืนยัน",
-            });
-        @endif
-        @if (session('deleted_job_title'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                html: '<strong class="text-danger">ลบข้อมูล</strong>งาน <strong>{{session('deleted_job_title')}}</strong> เรียบร้อยแล้ว',
-                confirmButtonText: "ยืนยัน",
-            });
-        @endif
+</x-app-layout>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const saveButton = document.getElementById('saveJobButton');
-            const deleteButton = document.getElementById('deleteButton');
-            const form = saveButton ? saveButton.closest('form') : null;
-
-            if (saveButton && form) {
-                saveButton.addEventListener('click', function (e) {
-                    if (!form.checkValidity()) {
-                        form.reportValidity();
-                        return;
-                    }
-                    
-                    Swal.fire({
-                        title: "บันทึกการเปลี่ยนแปลง?",
-                        text: "คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "บันทึก",
-                        cancelButtonText: "ยกเลิก"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        } else {
-                        }
-                    });
-                });
-            }
+<script>
+    @if (session('updated_job_title'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            html: 'บันทึกงาน <strong>{{session('updated_job_title')}}</strong> เรียบร้อยแล้ว',
+            confirmButtonText: "ยืนยัน",
         });
+    @endif
+    @if (session('deleted_job_title'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            html: '<strong class="text-danger">ลบข้อมูล</strong>งาน <strong>{{session('deleted_job_title')}}</strong> เรียบร้อยแล้ว',
+            confirmButtonText: "ยืนยัน",
+        });
+    @endif
 
-        document.querySelectorAll('.delete-job-btn').forEach(button => {
-            button.addEventListener('click', function (e) {
-                const jobId = this.getAttribute('data-job-id');
-                const jobTitle = this.getAttribute('data-job-title');
-                const formId = `deleteForm-${jobId}`;
+    document.addEventListener('DOMContentLoaded', function () {
+        const saveButton = document.getElementById('saveJobButton');
+        const deleteButton = document.getElementById('deleteButton');
+        const form = saveButton ? saveButton.closest('form') : null;
 
+        if (saveButton && form) {
+            saveButton.addEventListener('click', function (e) {
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                
                 Swal.fire({
-                    title: "ยืนยันการลบ?",
-                    html: `คุณแน่ใจหรือไม่ที่จะลบงาน: <strong>${jobTitle}</strong>?`,
+                    title: "บันทึกการเปลี่ยนแปลง?",
+                    text: "คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "ใช่, ลบทันที!",
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "บันทึก",
                     cancelButtonText: "ยกเลิก"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        document.getElementById(formId).submit();
+                        form.submit();
+                    } else {
                     }
                 });
             });
+        }
+    });
+
+    document.querySelectorAll('.delete-job-btn').forEach(button => {
+        button.addEventListener('click', function (e) {
+            const jobId = this.getAttribute('data-job-id');
+            const jobTitle = this.getAttribute('data-job-title');
+            const formId = `deleteForm-${jobId}`;
+
+            Swal.fire({
+                title: "ยืนยันการลบ?",
+                html: `คุณแน่ใจหรือไม่ที่จะลบงาน: <strong>${jobTitle}</strong>?`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "ใช่, ลบทันที!",
+                cancelButtonText: "ยกเลิก"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(formId).submit();
+                }
+            });
         });
-    </script>
-</x-app-layout>
+    });
+</script>
 
 <?php
     $_SESSION['currentPage'] = null;

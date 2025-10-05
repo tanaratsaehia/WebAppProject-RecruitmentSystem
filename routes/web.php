@@ -43,8 +43,8 @@ Route::middleware([
         
         // resume viewer
         Route::get('/resume-viewer', [ResumeViewerController::class,'index'])->name("resume-viewer");
-        Route::get('/resume-viewer/unread', [ResumeViewerController::class,'unread'])->name("resume-viewer.unread");
-        Route::get('/resume-viewer/marked', [ResumeViewerController::class,'marked'])->name("resume-viewer.marked");
+        Route::get('/resume-viewer/unread/{id?}', [ResumeViewerController::class, 'unread'])->name("resume-viewer.unread");
+        Route::get('/resume-viewer/marked/{id?}', [ResumeViewerController::class,'marked'])->name("resume-viewer.marked");
         Route::get('/resume-viewer/processing', [ResumeViewerController::class,'processing'])->name("resume-viewer.processing");
         Route::get('/resume-viewer/replied', [ResumeViewerController::class,'replied'])->name("resume-viewer.replied");
     });
