@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class, 
             JobOpeningSeeder::class,
             UploadedResumeSeeder::class,
+            SearchTagSeeder::class,
+            JobOpeningSearchTagSeeder::class,
         ]);
     }
 }

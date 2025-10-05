@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\JobOpening;
 use App\Models\UploadedResume;
+use App\Models\SearchTag;
 
 use Illuminate\Http\Request;
 
@@ -13,20 +14,40 @@ class ResumeViewerController extends Controller
         return redirect()->route('resume-viewer.unread'); 
     }
 
-    public function unread($id = null){
+    public function unread(Request $request, $id = null)
+    {
         $all_job_opening = JobOpening::all();
-        $query = UploadedResume::query();
+        $all_skills = SearchTag::all();
         $selected_job_id = null;
-
         if ($id !== null) {
-            $selected_job_id = (string) $id;
+            $selected_job_id = $id;
         } elseif ($first_job = $all_job_opening->first()) {
             $selected_job_id = (string) $first_job->id;
         }
+        if ($request->isMethod('post')) {
+            $selectedSkills = $request->input('skills', []);
+            $jobToUpdate = JobOpening::find($selected_job_id);
+            if ($jobToUpdate) {
+                $jobToUpdate->searchTags()->sync($selectedSkills);
+            }
+            return redirect()->route('resume-viewer.unread', ['id' => $selected_job_id]);
+        }
+
+        $selected_job = JobOpening::find($selected_job_id);
+        $job_skills = $selected_job ? $selected_job->searchTags : collect();
+
+        $query = UploadedResume::query();
         $query->where('job_opening_id', $selected_job_id);
+        // filter resumes by skills add that logic here
         $filtered_resume = $query->get();
         
-        return view("unread-resume", compact("all_job_opening", "selected_job_id", "filtered_resume"));
+        return view("unread-resume", compact(
+            "all_job_opening", 
+            "selected_job_id", 
+            "filtered_resume", 
+            "all_skills",
+            "job_skills"
+        ));
     }
 
     public function marked($id = null){

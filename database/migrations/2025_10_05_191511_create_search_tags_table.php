@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('search_tag_names', function (Blueprint $table) {
+        Schema::create('search_tags', function (Blueprint $table) {
             $table->id();
-            $table->string('tag_name');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('search_tag_names');
+        Schema::dropIfExists('search_tags');
     }
 };

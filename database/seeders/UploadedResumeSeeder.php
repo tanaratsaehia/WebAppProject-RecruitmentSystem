@@ -17,12 +17,18 @@ class UploadedResumeSeeder extends Seeder
             'user_id' => 3,
             'job_opening_id' => 1,
             'resume_file_name' => 'example_filename.pdf',
+            'ai_results' => [
+                'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Java', 'Spring Boot'],
+            ],
             'resume_status' => 'unread'
         ]);
         UploadedResume::create([
             'user_id' => 4,
             'job_opening_id' => 1,
             'resume_file_name' => 'example_2_filename.pdf',
+            'ai_results' => [
+                'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'NodeJs'],
+            ],
             'resume_status' => 'unread'
         ]);
     }
