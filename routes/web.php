@@ -48,7 +48,7 @@ Route::middleware([
         Route::post('/resume/{resume}/status', [ResumeViewerController::class, 'updateStatus'])->name("resume-viewer.update-status");
         Route::get('/resume-viewer/marked/{id?}', [ResumeViewerController::class,'marked'])->name("resume-viewer.marked");
         Route::get('/resume-viewer/processing', [ResumeViewerController::class,'processing'])->name("resume-viewer.processing");
-        Route::get('/resume-viewer/replied', [ResumeViewerController::class,'replied'])->name("resume-viewer.replied");
+        Route::get('/resume-viewer/replied/{id?}', [ResumeViewerController::class,'replied'])->name("resume-viewer.replied");
     });
 
     // upload

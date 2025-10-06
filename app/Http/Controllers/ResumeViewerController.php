@@ -15,8 +15,7 @@ class ResumeViewerController extends Controller
         return redirect()->route('resume-viewer.unread'); 
     }
 
-    public function unread(Request $request, $id = null)
-    {
+    public function unread(Request $request, $id = null){
         $all_job_opening = JobOpening::all();
         $all_skills = SearchTag::all();
         $selected_job_id = null;
@@ -85,12 +84,9 @@ class ResumeViewerController extends Controller
         return $resumesWithScore;
     }
 
-    public function updateStatus(Request $request, UploadedResume $resume)
-    {
-        // The UploadedResume model is automatically resolved by Laravel based on the {resume} ID in the route.
-        
+    public function updateStatus(Request $request, UploadedResume $resume){
         $action = $request->input('status_action');
-        $newStatus = $resume->resume_status; // Default to current status
+        $newStatus = $resume->resume_status;
         $message = '';
 
         switch ($action) {
@@ -103,14 +99,12 @@ class ResumeViewerController extends Controller
                 $message = 'เรซูเม่ถูกปฏิเสธแล้ว!';
                 break;
             case 'mark':
-                // Toggle the mark status (assuming 'marked' vs 'unread' or 'accepted')
-                // You might need a separate boolean column for 'is_marked' if your logic is complex.
-                // For simplicity, let's assume 'marked' is a status state.
-                $newStatus = ($resume->resume_status === 'marked') ? 'unread' : 'marked';
-                $message = "สถานะมาร์คถูกสลับเป็น " . $newStatus;
+                $newStatus = ($resume->resume_status === 'marked') ? 'unread' : 'marked'; // <<<----- for db use
+                $displayStatus = ($resume->resume_status === 'marked') ? 'unmark' : 'marked';
+                $message = "สถานะมาร์คถูกสลับเป็น " . $displayStatus; // <<<------- for user understanding
                 break;
             default:
-                $message = 'ไม่พบการกระทำที่ถูกต้อง';
+                $message = 'wrong action';
                 return back()->with('error', $message);
         }
 
@@ -123,7 +117,6 @@ class ResumeViewerController extends Controller
     }
 
     public function marked($id = null){
-        // return view('marked-resume');
         $all_job_opening = JobOpening::all();
         $selected_job_id = null;
 
@@ -132,17 +125,35 @@ class ResumeViewerController extends Controller
         } elseif ($first_job = $all_job_opening->first()) {
             $selected_job_id = (string) $first_job->id;
         }
+        $query = UploadedResume::query()
+            ->where('job_opening_id', $selected_job_id)
+            ->where('resume_status', 'marked');
+        $filtered_resume = $query->get();
         
-        // Note: You would query the resumes for the $selected_job_id here.
-        
-        return view("marked-resume", compact("all_job_opening", "selected_job_id"));
+        return view("marked-resume", compact("all_job_opening", "selected_job_id", "filtered_resume"));
     }
 
     public function processing(){
         return view('processing-resume');
     }
 
-    public function replied(){
-        return view('replied-resume');
+    // public function replied(){
+    //     return view('replied-resume');
+    // }
+    public function replied($id = null){
+        $all_job_opening = JobOpening::all();
+        $selected_job_id = null;
+
+        if ($id !== null) {
+            $selected_job_id = (string) $id;
+        } elseif ($first_job = $all_job_opening->first()) {
+            $selected_job_id = (string) $first_job->id;
+        }
+        $query = UploadedResume::query()
+            ->where('job_opening_id', $selected_job_id)
+            ->whereIn('resume_status', ['accepted', 'rejected']);
+        $filtered_resume = $query->get();
+        
+        return view("replied-resume", compact("all_job_opening", "selected_job_id", "filtered_resume"));
     }
 }
