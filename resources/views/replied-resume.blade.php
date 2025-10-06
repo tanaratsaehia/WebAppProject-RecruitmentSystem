@@ -27,13 +27,13 @@
                             </p>
                             <span class="fs-6 py-2 px-3">{{$resume->user->email}}</span>
                         </div>
-                        <div class="d-flex align-items-center ms-auto me-5">
+                        <div class="d-flex align-items-center ms-auto me-5" style="width: 10%;">
                             @if ($resume->resume_status == "accepted")
-                                <p class="p-1 rounded fs-5 bg-success text-white">Accepted</p>
+                                <p class="p-1 w-100 rounded fs-5 bg-success text-white text-center">Accepted</p>
                             @elseif ($resume->resume_status == "rejected")
-                                <p class="p-1 rounded fs-5 bg-danger text-white">Rejected</p>
+                                <p class="p-1 w-100 rounded fs-5 bg-danger text-white text-center">Rejected</p>
                             @else
-                                <p class="p-1 rounded fs-5 bg-warning text-dark">Unknow</p>
+                                <p class="p-1 w-100 rounded fs-5 bg-warning text-dark text-center">Unknow</p>
                             @endif
                         </div>
                     </div>

@@ -58,7 +58,7 @@
         </form>
     </div>
     <hr>
-    <div class="mt-5 mb-4 ps-5 w-100">
+    <div class="mt-5 mb-0 ps-5 w-100">
         <p class="text-2xl mt-1 font-medium fs-4 fw-bold mb-2">Results ({{$filtered_resume->count()}} files)</p>
         @forelse ($filtered_resume as $resume)
             <div class="resume-card mb-3 me-4">

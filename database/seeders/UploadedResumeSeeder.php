@@ -40,5 +40,23 @@ class UploadedResumeSeeder extends Seeder
             ],
             'resume_status' => 'unread'
         ]);
+        UploadedResume::create([
+            'user_id' => 6,
+            'job_opening_id' => 1,
+            'resume_file_name' => 'example_4_filename.pdf',
+            'ai_results' => [
+                'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Node.js'],
+            ],
+            'resume_status' => 'processing'
+        ]);
+        UploadedResume::create([
+            'user_id' => 7,
+            'job_opening_id' => 2,
+            'resume_file_name' => 'example_5_filename.pdf',
+            'ai_results' => [
+                'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Node.js'],
+            ],
+            'resume_status' => 'processing'
+        ]);
     }
 }

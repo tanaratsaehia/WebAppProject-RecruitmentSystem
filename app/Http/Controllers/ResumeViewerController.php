@@ -134,12 +134,15 @@ class ResumeViewerController extends Controller
     }
 
     public function processing(){
-        return view('processing-resume');
+        $all_job_opening = JobOpening::all();
+
+        $filtered_resume = UploadedResume::query()
+            ->where('resume_status', 'processing')
+            ->with('jobOpening')
+            ->get();
+        return view('processing-resume', compact("all_job_opening", "filtered_resume"));
     }
 
-    // public function replied(){
-    //     return view('replied-resume');
-    // }
     public function replied($id = null){
         $all_job_opening = JobOpening::all();
         $selected_job_id = null;
