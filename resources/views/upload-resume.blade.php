@@ -23,7 +23,7 @@
                     action="#" 
                     method="POST" 
                     enctype="multipart/form-data"
-                    class="border-2 border-dashed border-gray-300 p-10 rounded-lg bg-white text-center w-96 relative">
+                    class="p-10 rounded-lg bg-white text-center w-96 relative">
                     @csrf
                     <div class="card-body">
 
@@ -61,11 +61,11 @@
                                 Upload
                             </button>
                         </div>
-                        <div class="col-12 d-flex justify-content-center mt-3">
-                            <a href="#" class="btn btn-outline-primary border-dark text-dark col-12 fw-bold fs-5">สมัครเลย</a>
-                        </div>
                     </div>
                 </form>
+            </div>
+            <div class="card m-md-4" style="width: 90rem;">
+                <p>test</p>
             </div>
         </div>
     </div>

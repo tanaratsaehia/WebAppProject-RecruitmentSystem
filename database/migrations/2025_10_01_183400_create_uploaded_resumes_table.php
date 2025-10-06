@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('job_opening_id')->constrained()->onDelete('cascade');
             $table->string('resume_file_name');
             $table->json('ai_results')->nullable();
-            $table->string('resume_status');
+            $table->string('resume_status')->default('unread');
             $table->timestamps();
         });
     }

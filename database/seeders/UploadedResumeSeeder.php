@@ -20,7 +20,6 @@ class UploadedResumeSeeder extends Seeder
             'ai_results' => [
                 'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Java', 'Spring Boot'],
             ],
-            'resume_status' => 'unread'
         ]);
         UploadedResume::create([
             'user_id' => 4,
@@ -29,7 +28,6 @@ class UploadedResumeSeeder extends Seeder
             'ai_results' => [
                 'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Node.js'],
             ],
-            'resume_status' => 'unread'
         ]);
         UploadedResume::create([
             'user_id' => 5,
@@ -38,7 +36,6 @@ class UploadedResumeSeeder extends Seeder
             'ai_results' => [
                 'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Node.js'],
             ],
-            'resume_status' => 'unread'
         ]);
     }
 }
