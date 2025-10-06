@@ -45,7 +45,7 @@ class ResumeViewerController extends Controller
 
         $query = UploadedResume::query()
             ->where('job_opening_id', $selected_job_id)
-            ->where('resume_status', 'unread');
+            ->whereIn('resume_status', ['unread', 'marked']);
         
         if (!empty($selectedSkillNames)) {
             $query->whereJsonContains('ai_results->skills', $selectedSkillNames[0]);
@@ -83,6 +83,43 @@ class ResumeViewerController extends Controller
         ->sortByDesc('score')
         ->values();
         return $resumesWithScore;
+    }
+
+    public function updateStatus(Request $request, UploadedResume $resume)
+    {
+        // The UploadedResume model is automatically resolved by Laravel based on the {resume} ID in the route.
+        
+        $action = $request->input('status_action');
+        $newStatus = $resume->resume_status; // Default to current status
+        $message = '';
+
+        switch ($action) {
+            case 'accept':
+                $newStatus = 'accepted';
+                $message = 'เรซูเม่ถูกยอมรับแล้ว!';
+                break;
+            case 'reject':
+                $newStatus = 'rejected';
+                $message = 'เรซูเม่ถูกปฏิเสธแล้ว!';
+                break;
+            case 'mark':
+                // Toggle the mark status (assuming 'marked' vs 'unread' or 'accepted')
+                // You might need a separate boolean column for 'is_marked' if your logic is complex.
+                // For simplicity, let's assume 'marked' is a status state.
+                $newStatus = ($resume->resume_status === 'marked') ? 'unread' : 'marked';
+                $message = "สถานะมาร์คถูกสลับเป็น " . $newStatus;
+                break;
+            default:
+                $message = 'ไม่พบการกระทำที่ถูกต้อง';
+                return back()->with('error', $message);
+        }
+
+        if ($resume->resume_status !== $newStatus) {
+            $resume->update(['resume_status' => $newStatus]);
+            return back()->with('success', $message);
+        }
+
+        return back()->with('info', "เรซูเม่ถูกตั้งค่าสถานะเป็น " . $newStatus . " อยู่แล้ว");
     }
 
     public function marked($id = null){

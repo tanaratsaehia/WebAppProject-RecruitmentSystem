@@ -13,6 +13,13 @@ class UploadedResume extends Model
     protected $casts = [
         'ai_results' => 'array',
     ];
+    protected $fillable = [
+        'user_id',
+        'job_opening_id',
+        'resume_file_name',
+        'ai_results',
+        'resume_status',
+    ];
 
     public function user(){
         return $this->belongsTo(User::class);

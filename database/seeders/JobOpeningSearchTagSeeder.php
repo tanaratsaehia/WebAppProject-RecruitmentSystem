@@ -21,14 +21,16 @@ class JobOpeningSearchTagSeeder extends Seeder
         $tag2 = SearchTag::where('name', 'Spring Boot')->first();
         $tag3 = SearchTag::where('name', 'Firebase')->first();
         $tag4 = SearchTag::where('name', 'CSS')->first();
+        $tag5 = SearchTag::where('name', 'Laravel')->first();
 
-        if ($job1 && $tag1 && $tag2) {
+        if ($job1 && $tag1 && $tag2 && $tag5) {
             $job1->searchTags()->attach([
                 $tag1->id,
                 $tag2->id,
+                $tag5->id,
             ]);
 
-            $this->command->info('Tags attached to Job 1.');
+            // $this->command->info('Tags attached to Job 1.');
         }
 
         // if ($job2 && $tag3 && $tag4) {
