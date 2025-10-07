@@ -61,7 +61,7 @@ class ResumeUploadController extends Controller
                 'resume_size' => $file->getSize(),
             ]
         );
-        return redirect()->back()->with('success', 'Resume uploaded successfully!');
+        return redirect()->back()->with('updated_resume', $file->getClientOriginalName());
     }
 
 
@@ -75,16 +75,20 @@ class ResumeUploadController extends Controller
             ->first();
 
         if ($resume) {
+            $resumeName = $resume->resume_file_name;
+
             if ($resume->resume_path && Storage::disk('private')->exists($resume->resume_path)) {
                 Storage::disk('private')->delete($resume->resume_path);
             }
+
             $resume->delete();
 
-            return redirect()->back()->with('success', 'Resume deleted successfully!');
+            return redirect()->back()->with('deleted_resume', $resumeName);
         }
 
         return redirect()->back()->with('error', 'ไม่พบไฟล์ที่จะลบ');
     }
+
 
     // ดาวน์โหลดไฟล์ (private)
     public function download($jobOpeningId)
