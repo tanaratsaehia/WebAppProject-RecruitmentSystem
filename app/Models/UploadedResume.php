@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\JobOpening;
 use App\Models\User;
 use App\Models\SearchTag;
+use App\Models\ApplyInfomation;
 
 class UploadedResume extends Model
 {
@@ -34,5 +35,9 @@ class UploadedResume extends Model
 
     public function searchTags(){
         return $this->belongsToMany(SearchTag::class);
+    }
+
+    public function applyInfomation(){
+        return $this->hasOne(ApplyInfomation::class);
     }
 }

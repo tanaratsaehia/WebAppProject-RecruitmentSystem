@@ -11,6 +11,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UploadedResume;
 use App\Models\SearchTag;
+use App\Models\ApplyInfomation;
 
 class User extends Authenticatable
 {
@@ -63,5 +64,13 @@ class User extends Authenticatable
 
     public function uploadedResume(){
         return $this->hasMany(UploadedResume::class);
+    }
+
+    public function searchTags(){
+        return $this->belongsToMany(SearchTag::class);
+    }
+
+    public function applyInfomation(){
+        return $this->hasOne(ApplyInfomation::class);
     }
 }

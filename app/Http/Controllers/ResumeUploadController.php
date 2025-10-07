@@ -33,7 +33,7 @@ class ResumeUploadController extends Controller
         ]);
 
         if (!$request->hasFile('resume')) {
-            return redirect()->back()->with('error', 'กรุณาเลือกไฟล์ก่อนกดอัปโหลด');
+            return back()->with('error', 'กรุณาเลือกไฟล์ก่อนกดอัปโหลด');
         }
 
         $file = $request->file('resume');
@@ -61,7 +61,7 @@ class ResumeUploadController extends Controller
                 'resume_size' => $file->getSize(),
             ]
         );
-        return redirect()->back()->with('updated_resume', $file->getClientOriginalName());
+        return back()->with('updated_resume', $file->getClientOriginalName());
     }
 
 
