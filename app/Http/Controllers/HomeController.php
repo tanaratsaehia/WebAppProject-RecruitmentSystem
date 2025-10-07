@@ -16,4 +16,8 @@ class HomeController extends Controller
         $all_job_opening = JobOpening::all();
         return view('home-with-out-login', compact("all_job_opening"));
     }
+
+    public function Applied_Status(){
+        
+    }
 }
