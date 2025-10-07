@@ -95,11 +95,11 @@ class ResumeViewerController extends Controller
         switch ($action) {
             case 'accept':
                 $newStatus = 'accepted';
-                $message = 'เรซูเม่ถูกยอมรับแล้ว!';
+                $message = 'Accepted resume!';
                 break;
             case 'reject':
                 $newStatus = 'rejected';
-                $message = 'เรซูเม่ถูกปฏิเสธแล้ว!';
+                $message = 'Rejected resume!';
                 break;
             case 'mark':
                 $newStatus = ($resume->resume_status === 'marked') ? 'unread' : 'marked'; // <<<----- for db use
@@ -118,7 +118,7 @@ class ResumeViewerController extends Controller
             return back()->with('success', $message);
         }
 
-        return back()->with('info', "เรซูเม่ถูกตั้งค่าสถานะเป็น " . $newStatus . " อยู่แล้ว");
+        return back()->with('info', "Resume is already " . $newStatus);
     }
 
     public function marked($id = null){

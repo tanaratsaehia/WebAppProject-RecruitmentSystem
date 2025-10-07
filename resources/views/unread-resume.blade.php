@@ -47,6 +47,7 @@
             <div class="resume-card mb-4 me-4">
                 <form action="{{ route('resume-viewer.update-status', $resume->id) }}" method="POST" class="resume-action-form" data-resume-name="{{ $resume->resume_file_name }}">
                     @csrf
+                    <input type="hidden" name="status_action" class="status-action-input" value="">
                     <div class="border border-dark rounded-2 p-2">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
@@ -92,7 +93,7 @@
                                 </button>
                             </div>
                         </div>
-                        <hr class="my-2">
+                        <hr class="my-2 mx-2">
                         <p>Purpose: {{$resume->applyInfomation->applying_purpose}}</p>
                     </div>
                 </form>
@@ -110,31 +111,31 @@
             icon: 'success',
             title: 'Success!',
             text: '{{session('success')}}',
-            confirmButtonText: "Confirm",
+            confirmButtonText: "OK",
         });
     @endif
+    
     document.addEventListener("DOMContentLoaded", function () {
         new Choices("#exampleSelect", {
             removeItemButton: true,
             placeholderValue: 'Select options...',
             searchPlaceholderValue: 'Search...',
         });
-
         const clearButton = document.getElementById('clearSkillsButton');
         const skillSelect = document.getElementById('exampleSelect');
         const form = document.getElementById('skill-form');
+        
         if (clearButton && form && skillSelect) {
             clearButton.addEventListener('click', function (e) {
-                // 1. Show Confirmation Dialog
                 Swal.fire({
-                    title: "Do you want to clear tags?",
-                    text: "คุณต้องการล้างแท็กทั้งหมดสำหรับงานนี้หรือไม่",
+                    title: "Confirm Clear Tags?",
+                    text: "Are you sure you want to clear all tags for this job?", 
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#d33",
                     cancelButtonColor: "#3085d6",
-                    confirmButtonText: "ล้างแท็กทั้งหมด",
-                    cancelButtonText: "ยกเลิก"
+                    confirmButtonText: "Clear All Tags",
+                    cancelButtonText: "Cancel"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         for (let i = 0; i < skillSelect.options.length; i++) {
@@ -145,9 +146,7 @@
                 });
             });
         }
-
         const actionButtons = document.querySelectorAll('.action-button');
-
         actionButtons.forEach(button => {
             button.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -165,21 +164,18 @@
 
                 switch (actionType) {
                     case 'accept':
-                        title = "ยืนยันการรับเข้าสัมภาษณ์?";
-                        confirmText = `คุณยืนยันที่จะรับเข้าเรซูเม่ "${resumeName}" เข้าสัมภาษณ์หรือไม่?`;
+                        title = "Confirm Acceptance for Interview?";
+                        confirmText = `Are you sure you want to accept resume "${resumeName}" for an interview?`;
                         icon = 'success';
-                        confirmButtonColor = '#28a745'; // Green for success
+                        confirmButtonColor = '#28a745';
                         break;
                     case 'reject':
-                        title = "ยืนยันการปฏิเสธ?";
-                        confirmText = `คุณยืนยันที่จะปฏิเสธเรซูเม่ "${resumeName}" หรือไม่?`;
+                        title = "Confirm Rejection?";
+                        confirmText = `Are you sure you want to reject resume "${resumeName}"?`;
                         icon = 'warning';
-                        confirmButtonColor = '#dc3545'; // Red for danger
+                        confirmButtonColor = '#dc3545';
                         break;
                     case 'mark':
-                        // title = "ยืนยันสถานะมาร์ค?";
-                        // confirmText = `คุณต้องการสลับสถานะมาร์คของเรซูเม่ "${resumeName}" หรือไม่?`;
-                        // icon = 'info';
                         const actionInput = form.querySelector('.status-action-input');
                         actionInput.value = actionType;
                         form.submit();
@@ -195,8 +191,8 @@
                     showCancelButton: true,
                     confirmButtonColor: confirmButtonColor,
                     cancelButtonColor: "#6c757d",
-                    confirmButtonText: "ยืนยัน",
-                    cancelButtonText: "ยกเลิก"
+                    confirmButtonText: "Confirm",
+                    cancelButtonText: "Cancel"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         const actionInput = form.querySelector('.status-action-input');

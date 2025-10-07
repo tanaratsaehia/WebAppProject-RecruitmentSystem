@@ -64,7 +64,7 @@
                                 </button>
                             </div>
                         </div>
-                        <hr class="my-2">
+                        <hr class="my-2 mx-2">
                         <p>Purpose: {{$resume->applyInfomation->applying_purpose}}</p>
                     </div>
                 </form>
@@ -81,9 +81,10 @@
             icon: 'success',
             title: 'Success!',
             text: '{{session('success')}}',
-            confirmButtonText: "ยืนยัน",
+            confirmButtonText: "OK",
         });
     @endif
+    
     document.addEventListener("DOMContentLoaded", function () {
         const actionButtons = document.querySelectorAll('.action-button');
         actionButtons.forEach(button => {
@@ -103,21 +104,18 @@
 
                 switch (actionType) {
                     case 'accept':
-                        title = "ยืนยันการรับเข้าสัมภาษณ์?";
-                        confirmText = `คุณยืนยันที่จะรับเข้าเรซูเม่ "${resumeName}" เข้าสัมภาษณ์หรือไม่?`;
+                        title = "Confirm Acceptance for Interview?"; 
+                        confirmText = `Are you sure you want to accept resume "${resumeName}" for an interview?`;
                         icon = 'success';
-                        confirmButtonColor = '#28a745'; // Green for success
+                        confirmButtonColor = '#28a745';
                         break;
                     case 'reject':
-                        title = "ยืนยันการปฏิเสธ?";
-                        confirmText = `คุณยืนยันที่จะปฏิเสธเรซูเม่ "${resumeName}" หรือไม่?`;
+                        title = "Confirm Rejection?";
+                        confirmText = `Are you sure you want to reject resume "${resumeName}"?`;
                         icon = 'warning';
-                        confirmButtonColor = '#dc3545'; // Red for danger
+                        confirmButtonColor = '#dc3545';
                         break;
                     case 'mark':
-                        // title = "ยืนยันสถานะมาร์ค?";
-                        // confirmText = `คุณต้องการสลับสถานะมาร์คของเรซูเม่ "${resumeName}" หรือไม่?`;
-                        // icon = 'info';
                         const actionInput = form.querySelector('.status-action-input');
                         actionInput.value = actionType;
                         form.submit();
@@ -133,8 +131,8 @@
                     showCancelButton: true,
                     confirmButtonColor: confirmButtonColor,
                     cancelButtonColor: "#6c757d",
-                    confirmButtonText: "ยืนยัน",
-                    cancelButtonText: "ยกเลิก"
+                    confirmButtonText: "Confirm",
+                    cancelButtonText: "Cancel"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         const actionInput = form.querySelector('.status-action-input');
