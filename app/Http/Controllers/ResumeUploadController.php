@@ -73,6 +73,14 @@ class ResumeUploadController extends Controller
         $softSkill = $request->input('soft_skill');
         $applyingPurpose = $request->input('applying_purpose');
 
+        $selectedSkillsIds = $request->input('skills',[]);
+
+        $user_data = User::find($userId);
+
+        if ($user_data) {
+            $user_data->searchTags()->sync($selectedSkillsIds);
+        }
+
         $user = User::findOrFail($userId);
         $user->email = $email;
         $user->phone_number = $tel;

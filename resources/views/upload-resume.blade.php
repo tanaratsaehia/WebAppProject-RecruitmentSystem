@@ -64,9 +64,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="">
-                            <label for="exampleSelect" class="form-label fw-semibold fs-5">Skills</label>
-                            <select class="form-select" id="exampleSelect" multiple name="skills[]">
+                        <div class="card m-md-4 me-auto">
+                            <label for="exampleSelect" class="form-label fw-semibold fs-5 text-start mx-3 p-3">Skills</label>
+                            <select class="form-select text-start ps-0 pe-auto me-auto ms-0" id="exampleSelect" multiple name="skills[]">
                                 @php
                                     $selectedSkillIds = $user_selected_skills->pluck('id')->toArray();
                                 @endphp
@@ -204,6 +204,12 @@
             const previewFileName = document.getElementById('preview-filename');
             const previewFileSize = document.getElementById('preview-filesize');
             const clearBtn = document.getElementById('clear-selected');
+
+            new Choices("#exampleSelect", {
+            removeItemButton: true,
+            placeholderValue: 'Select options...',
+            searchPlaceholderValue: 'Search...',
+            });
 
             // format bytes
             function formatBytes(bytes){
