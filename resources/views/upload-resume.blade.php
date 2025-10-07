@@ -34,7 +34,7 @@
             </div>
 
             <div class="card m-md-4" style="width: 70rem;">
-                <h1 class="fs-1 fw-bold pt-3">Add Resume File</h1>
+                <h1 class="fs-1 fw-bold pt-3">Apply</h1>
                 @if(empty($uploaded) or empty($uploaded->resume_path))
                     <form id="resume-form"
                         action="{{ route('home.upload-resume.upload', $id) }}"
@@ -42,6 +42,28 @@
                         enctype="multipart/form-data"
                         class="p-4 rounded-lg bg-white text-center w-100">
                         @csrf
+                        <div>
+                            <div class="p-3 flex flex-row align-items-center">
+                                <div class="col mx-3">
+                                    <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Email</label>
+                                    <input class="d-flex justify-content-start w-100" type="email" name="Email" id="Email" autocomplete="email" required>
+                                </div>
+                                <div class="col mx-3">
+                                    <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Tel</label>
+                                    <input class="d-flex justify-content-start w-100" type="tel" name="Tel" id="Tel" autocomplete="tel" required>
+                                </div>
+                            </div>
+                            <div class="p-3 flex flex-row align-items-center">
+                                <div class="col mx-3">
+                                    <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Solf Skills</label>
+                                    <textarea name="Solf_Skill" id="Solf-Skill-Input" class="form-control" placeholder="Solf Skills required here..." required></textarea>
+                                </div>
+                                <div class="col mx-3">
+                                    <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Apply Purpose</label>
+                                    <textarea name="Applying_Purpose" id="Applying-Purpose" class="form-control" placeholder="Applying Purpose required here..." required></textarea>
+                                </div>
+                            </div>
+                        </div>
                         {{-- กล่องลาก/คลิกเลือกไฟล์ --}}
                         <div id="drop-zone" class="border rounded p-4 mb-3" style="border:2px dashed #ccc; cursor:pointer;">
                             <label for="resume" class="d-block mb-2" style="cursor:pointer;">
@@ -106,7 +128,8 @@
 
                                 {{-- ข้อมูลไฟล์ --}}
                                 <div class="flex-grow-1 text-start me-3">
-                                    <div class="fw-bold">{{ $uploaded->resume_file_name }}</div>
+                                    {{--<div class="fw-bold">{{ $uploaded->resume_file_name }}</div>--}}
+                                    <a href="{{ route('home.upload-resume.view', ['id' => $uploaded->job_opening_id]) }}" class="fw-bold">{{ $uploaded->resume_file_name }}</a>
                                     <div class="small text-muted">
                                         {{ number_format($uploaded->resume_size / 1024, 1) }} KB
                                         &nbsp;|&nbsp;
@@ -114,10 +137,18 @@
                                     </div>
                                 </div>
 
-                                {{-- ปุ่ม Download --}}
+                                {{-- ปุ่ม Download และ view --}}
                                 <div>
-                                    <a href="{{ route('home.upload-resume.download', ['id' => $id]) }}" class="btn btn-sm btn-primary">Download</a>
-                                    <a href="{{ route('home.upload-resume.view', ['id' => $id]) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
+                                    <a href="{{ route('home.upload-resume.download', ['id' => $id]) }}" class="btn btn-sm btn-primary fs-5">Download</a>
+                                    <a href="{{ route('home.upload-resume.view', ['id' => $id]) }}" target="_blank" class="btn btn-sm btn-outline-primary fs-5">View</a>
+                                    <form action="{{ route('home.upload-resume.delete', ['id' => $id]) }}"
+                                            method="POST"
+                                            class="delete-form"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger fs-5">Delete</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -133,21 +164,21 @@
                 title: 'Success!',
                 text: '{{ session('success') }}',
                 timer: 2000,
-                html: '<strong class="text-secondary">อัพเดพข้อมูล</strong> resume <strong>{{session('deleted_resume')}}</strong> เรียบร้อยแล้ว',
-                showConfirmButton: "ยืนยัน"
+                html: '<strong class="text-secondary">Update Information</strong> resume <strong>{{session('deleted_resume')}}</strong> Completed',
+                showConfirmButton: "Confirm"
             });
         @endif
         @if (session('deleted_resume'))
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',
-                html: '<strong class="text-danger">ลบข้อมูล</strong> resume <strong>{{session('deleted_resume')}}</strong> เรียบร้อยแล้ว',
-                confirmButtonText: "ยืนยัน",
+                html: '<strong class="text-danger">Delete</strong> resume <strong>{{session('deleted_resume')}}</strong> Completed',
+                confirmButtonText: "Confirm",
             });
         @endif
 
         @if(session('error'))
-            Swal.fire('ผิดพลาด', '{{ session('error') }}', 'error');
+            Swal.fire('error', '{{ session('error') }}', 'error');
         @endif
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -186,10 +217,10 @@
                     if(!file) return clearSelected();
 
                     if(file.type!=='application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){
-                        alert('รองรับเฉพาะ PDF เท่านั้น'); return clearSelected();
+                        alert('Only PDF files are supported'); return clearSelected();
                     }
                     if(file.size > 3*1024*1024){
-                        alert('ขนาดต้องไม่เกิน 3MB'); return clearSelected();
+                        alert('File size must not exceed 3MB'); return clearSelected();
                     }
                     showPreview(file);
                 });
@@ -209,10 +240,10 @@
                     if(!file) return;
 
                     if(file.type!=='application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){
-                        alert('รองรับเฉพาะ PDF เท่านั้น'); return;
+                        alert('Only PDF files are supported'); return;
                     }
                     if(file.size > 3*1024*1024){
-                        alert('ขนาดต้องไม่เกิน 3MB'); return;
+                        alert('File size must not exceed 3MB'); return;
                     }
 
                     const dt = new DataTransfer();

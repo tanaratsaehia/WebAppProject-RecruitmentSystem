@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\UploadedResume;
 use App\Models\JobOpening;
+use App\Models\ApplyInfomation;
+use App\Models\User;
+use Illuminate\Validation\Rule;
 class ResumeUploadController extends Controller
 {
     // แสดงฟอร์ม
@@ -30,14 +33,37 @@ class ResumeUploadController extends Controller
     {
         $request->validate([
             'resume' => 'required|mimes:pdf|max:3072',
+            'Email' => [
+                'required',
+                'email',
+                'max:225',
+                Rule::unique('users', 'email')->ignore(Auth::id()),
+            ],
+            'Tel' => [
+            'required',
+            'string',
+            'max:20',
+            Rule::unique('users', 'phone_number')->ignore(Auth::id()),
+            ], 
+        
+        ],[
+            'Email.unique' => 'This email address is already in useว',
+            'Tel.unique' => 'This phone number is already in use',
         ]);
 
         if (!$request->hasFile('resume')) {
-            return back()->with('error', 'กรุณาเลือกไฟล์ก่อนกดอัปโหลด');
+            return back()->with('error', 'Please select a file before proceeding with the upload');
         }
 
+        $email = $request->input('Email');
+        $tel = $request->input('Tel');
         $file = $request->file('resume');
         $userId = Auth::id();
+
+        $user = User::findOrFail($userId);
+        $user->email = $email;
+        $user->phone_number = $tel;
+        $user->save();
 
         /*$uploaded = UploadedResume::where('user_id', $userId)
             ->where('job_opening_id', operator: $jobOpeningId)
@@ -59,6 +85,7 @@ class ResumeUploadController extends Controller
                 'resume_file_name' => $file->getClientOriginalName(),
                 'resume_path' => $newPath,
                 'resume_size' => $file->getSize(),
+                'apply_infomations_id' => 1,
             ]
         );
         return back()->with('updated_resume', $file->getClientOriginalName());
@@ -113,7 +140,7 @@ class ResumeUploadController extends Controller
         ->firstOrFail();
 
     $filePath = $resume->resume_path;
-
+   
     // เช็กว่ามีไฟล์จริงไหม
     if (!Storage::disk('private')->exists($filePath)) {
         return redirect()->back()->with('error', 'ไม่พบไฟล์ในระบบ');

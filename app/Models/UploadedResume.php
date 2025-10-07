@@ -23,6 +23,7 @@ class UploadedResume extends Model
         'resume_size',
         'resume_status',
         'ai_results',
+        'apply_infomations_id',
     ];
 
     public function user(){
