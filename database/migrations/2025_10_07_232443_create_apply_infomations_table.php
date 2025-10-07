@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('apply_infomations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('soft_skill')->nullable(); 
+            $table->string('soft_skill'); 
             $table->string('applying_purpose'); 
             $table->timestamps();
         });

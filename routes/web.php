@@ -41,7 +41,7 @@ Route::middleware([
     //     // Route::get('/admin', [::class,'index'])->name("admin");
     // });
 
-    Route::middleware(['role:hr-superHR'])->group(function () {
+    Route::middleware(['role:hr'])->group(function () {
         // edit hiring job
         Route::get('/edit-hiring-job', [JobOpeningController::class,'index'])->name("edit-hiring-job");
         Route::get('/edit-hiring-job/{id}', [JobOpeningController::class,'editJob'])->name("edit-hiring-job.edit");
@@ -55,8 +55,9 @@ Route::middleware([
         Route::post('/resume-viewer/unread/{id?}', [ResumeViewerController::class, 'unread'])->name("resume-viewer.unread");
         Route::post('/resume/{resume}/status', [ResumeViewerController::class, 'updateStatus'])->name("resume-viewer.update-status");
         Route::get('/resume-viewer/marked/{id?}', [ResumeViewerController::class,'marked'])->name("resume-viewer.marked");
-        Route::get('/resume-viewer/processing', [ResumeViewerController::class,'processing'])->name("resume-viewer.processing");
         Route::get('/resume-viewer/replied/{id?}', [ResumeViewerController::class,'replied'])->name("resume-viewer.replied");
+
+        Route::get('/uploaded-resume/{job_id}/{user_id}/view', [ResumeUploadController::class, 'viewUser'])->name('home.upload-resume.viewUser');
     });
 
     Route::middleware(['role:user'])->group(function (){

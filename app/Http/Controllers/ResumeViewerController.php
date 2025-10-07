@@ -103,9 +103,11 @@ class ResumeViewerController extends Controller
                 break;
             case 'mark':
                 $newStatus = ($resume->resume_status === 'marked') ? 'unread' : 'marked'; // <<<----- for db use
-                $displayStatus = ($resume->resume_status === 'marked') ? 'unmark' : 'marked';
-                $message = "สถานะมาร์คถูกสลับเป็น " . $displayStatus; // <<<------- for user understanding
-                break;
+                // $displayStatus = ($resume->resume_status === 'marked') ? 'unmark' : 'marked';
+                // $message = "สถานะมาร์คถูกสลับเป็น " . $displayStatus; // <<<------- for user understanding
+                // break;
+                $resume->update(['resume_status' => $newStatus]);
+                return back();
             default:
                 $message = 'wrong action';
                 return back()->with('error', $message);
@@ -134,16 +136,6 @@ class ResumeViewerController extends Controller
         $filtered_resume = $query->get();
         
         return view("marked-resume", compact("all_job_opening", "selected_job_id", "filtered_resume"));
-    }
-
-    public function processing(){
-        $all_job_opening = JobOpening::all();
-
-        $filtered_resume = UploadedResume::query()
-            ->where('resume_status', 'processing')
-            ->with('jobOpening')
-            ->get();
-        return view('processing-resume', compact("all_job_opening", "filtered_resume"));
     }
 
     public function replied($id = null){
