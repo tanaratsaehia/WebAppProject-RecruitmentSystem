@@ -23,7 +23,6 @@
                 </div>
             </a>
         </div>
-
         @if (auth()->user()->role == "user")
             <div class="w-100 ps-2 mt-2">
                 <a href="#" class="p-0 m-0 w-100">

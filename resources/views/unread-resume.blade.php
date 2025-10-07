@@ -44,7 +44,7 @@
     <div class="mt-5 mb-0 ps-5 w-100">
         <p class="text-2xl mt-1 font-medium fs-4 fw-bold mb-2">Results ({{$filtered_resume->count()}} files)</p>
         @forelse ($filtered_resume as $resume)
-            <div class="resume-card mb-3 me-4">
+            <div class="resume-card mb-4 me-4">
                 <form action="{{ route('resume-viewer.update-status', $resume->id) }}" method="POST" class="resume-action-form" data-resume-name="{{ $resume->resume_file_name }}">
                     @csrf
                     <div class="border border-dark rounded-2 p-2">
@@ -92,6 +92,7 @@
                                 </button>
                             </div>
                         </div>
+                        <hr class="my-2">
                         <p>Purpose: {{$resume->applyInfomation->applying_purpose}}</p>
                     </div>
                 </form>
@@ -109,7 +110,7 @@
             icon: 'success',
             title: 'Success!',
             text: '{{session('success')}}',
-            confirmButtonText: "ยืนยัน",
+            confirmButtonText: "Confirm",
         });
     @endif
     document.addEventListener("DOMContentLoaded", function () {
@@ -126,7 +127,7 @@
             clearButton.addEventListener('click', function (e) {
                 // 1. Show Confirmation Dialog
                 Swal.fire({
-                    title: "ยืนยันการล้างแท็ก?",
+                    title: "Do you want to clear tags?",
                     text: "คุณต้องการล้างแท็กทั้งหมดสำหรับงานนี้หรือไม่",
                     icon: "warning",
                     showCancelButton: true,
