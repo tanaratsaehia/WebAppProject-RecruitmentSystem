@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobOpeningController;
 use App\Http\Controllers\ResumeViewerController;
 use App\Http\Controllers\ResumeUploadController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +54,9 @@ Route::middleware([
         Route::get('/resume-viewer/marked/{id?}', [ResumeViewerController::class,'marked'])->name("resume-viewer.marked");
         Route::get('/resume-viewer/processing', [ResumeViewerController::class,'processing'])->name("resume-viewer.processing");
         Route::get('/resume-viewer/replied', [ResumeViewerController::class,'replied'])->name("resume-viewer.replied");
+
+        // admin page
+        Route::get('/admin',[AdminController::class,'index'])->name('admin');
     });
 
     Route::middleware(['role:user'])->group(function (){
