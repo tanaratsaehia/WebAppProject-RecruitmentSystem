@@ -49,7 +49,7 @@
                     enctype="multipart/form-data"
                     class="p-4 rounded-lg bg-white text-center w-100">
                     @csrf
-                    @if(empty($uploaded))
+                    @if(empty($uploaded) or empty($uploaded->resume_path))
                         {{-- กล่องลาก/คลิกเลือกไฟล์ --}}
                         <div id="drop-zone" class="border rounded p-4 mb-3" style="border:2px dashed #ccc; cursor:pointer;">
                             <label for="resume" class="d-block mb-2" style="cursor:pointer;">
