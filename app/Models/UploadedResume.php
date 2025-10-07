@@ -22,7 +22,7 @@ class UploadedResume extends Model
         'resume_path',
         'resume_size',
         'resume_status',
-        'apply_infomations_id',
+        'apply_infomation_id',
     ];
 
     public function user(){

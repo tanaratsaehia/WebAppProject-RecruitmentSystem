@@ -46,21 +46,21 @@
                             <div class="p-3 flex flex-row align-items-center">
                                 <div class="col mx-3">
                                     <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Email</label>
-                                    <input class="d-flex justify-content-start w-100" type="email" name="Email" id="Email" autocomplete="email" required>
+                                    <input class="d-flex justify-content-start w-100" type="email" name="Email" id="Email" value="{{ auth()->user()->email }}" autocomplete="email" required>
                                 </div>
                                 <div class="col mx-3">
                                     <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Tel</label>
-                                    <input class="d-flex justify-content-start w-100" type="tel" name="Tel" id="Tel" autocomplete="tel" required>
+                                    <input class="d-flex justify-content-start w-100" type="tel" name="Tel" id="Tel" value="{{ auth()->user()->phone_number }}" autocomplete="tel" pattern="[0-9]{10}" required>
                                 </div>
                             </div>
                             <div class="p-3 flex flex-row align-items-center">
                                 <div class="col mx-3">
                                     <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Solf Skills</label>
-                                    <textarea name="Solf_Skill" id="Solf-Skill-Input" class="form-control" placeholder="Solf Skills required here..." required></textarea>
+                                    <textarea name="soft_skill" id="Solf-Skill-Input" class="form-control" placeholder="Solf Skills required here..." required>{{ $lateInfo->soft_skill }}</textarea>
                                 </div>
                                 <div class="col mx-3">
                                     <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Apply Purpose</label>
-                                    <textarea name="Applying_Purpose" id="Applying-Purpose" class="form-control" placeholder="Applying Purpose required here..." required></textarea>
+                                    <textarea name="applying_purpose" id="Applying-Purpose" class="form-control" placeholder="Applying Purpose required here..." required>{{ $lateInfo->applying_purpose }}</textarea>
                                 </div>
                             </div>
                         </div>

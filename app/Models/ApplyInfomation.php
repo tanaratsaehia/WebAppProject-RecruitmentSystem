@@ -11,6 +11,12 @@ class ApplyInfomation extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'soft_skill',
+        'applying_purpose'
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

@@ -21,10 +21,12 @@ class ResumeUploadController extends Controller
             ->first();
         $item = JobOpening::where('id',$id)->first();
 
+        $lastInfo = ApplyInfomation::where('user_id',$userId)->orderBy('id','desc')->first();
         return view('upload-resume', [
             'id' => $id,
             'uploaded' => $uploaded,
-            'item' => $item
+            'item' => $item,
+            'lateInfo' => $lastInfo,
         ]);
     }
 
@@ -44,10 +46,11 @@ class ResumeUploadController extends Controller
             'string',
             'max:20',
             Rule::unique('users', 'phone_number')->ignore(Auth::id()),
-            ], 
-        
+            ],
+            'soft_skill' => 'required|string',
+            'applying_purpose' => 'required|string',
         ],[
-            'Email.unique' => 'This email address is already in useว',
+            'Email.unique' => 'This email address is already in use',
             'Tel.unique' => 'This phone number is already in use',
         ]);
 
@@ -60,10 +63,21 @@ class ResumeUploadController extends Controller
         $file = $request->file('resume');
         $userId = Auth::id();
 
+        $softSkill = $request->input('soft_skill');
+        $applyingPurpose = $request->input('applying_purpose');
+
         $user = User::findOrFail($userId);
         $user->email = $email;
         $user->phone_number = $tel;
         $user->save();
+
+        $searchAttributes = [
+            'user_id' => $userId,
+            'soft_skill' => $softSkill,
+            'applying_purpose' => $applyingPurpose,
+        ];
+
+        $apply_info = ApplyInfomation::firstOrCreate($searchAttributes);
 
         /*$uploaded = UploadedResume::where('user_id', $userId)
             ->where('job_opening_id', operator: $jobOpeningId)
@@ -86,7 +100,7 @@ class ResumeUploadController extends Controller
                 'resume_file_name' => $file->getClientOriginalName(),
                 'resume_path' => $newPath,
                 'resume_size' => $file->getSize(),
-                'apply_infomations_id' => 1,
+                'apply_infomation_id' => $apply_info->id,
             ]
         );
         return back()->with('updated_resume', $file->getClientOriginalName());
