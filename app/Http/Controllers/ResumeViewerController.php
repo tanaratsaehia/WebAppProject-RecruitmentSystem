@@ -40,21 +40,25 @@ class ResumeViewerController extends Controller
 
         $selected_job = JobOpening::find($selected_job_id);
         $job_skills = $selected_job ? $selected_job->searchTags : collect();
-        $selectedSkillNames = $job_skills->pluck('name')->toArray();
+        // $selectedSkillNames = $job_skills->pluck('name')->toArray();
+        $requiredSkillIds = $job_skills->pluck('id')->toArray();
 
         $query = UploadedResume::query()
             ->where('job_opening_id', $selected_job_id)
             ->whereIn('resume_status', ['unread', 'marked']);
         
-        if (!empty($selectedSkillNames)) {
-            $query->whereJsonContains('ai_results->skills', $selectedSkillNames[0]);
+        if (!empty($requiredSkillIds)) {
+            $query->whereHas('searchTags', function ($q) use ($requiredSkillIds) {
+                $q->whereIn('search_tag_id', $requiredSkillIds);
+            });
+            $query->with('searchTags');
         }
         $filtered_resume = $query->get();
 
-        if (!empty($selectedSkillNames)) {
+        if (!empty($requiredSkillIds)) {
             $filtered_resume = $this->scoreAndSortResumes(
                 $filtered_resume, 
-                $selectedSkillNames
+                $requiredSkillIds
             );
         }
         return view("unread-resume", compact(
@@ -66,14 +70,13 @@ class ResumeViewerController extends Controller
         ));
     }
 
-    protected function scoreAndSortResumes(Collection $resumes, array $requiredSkills): Collection {
-        $requiredSkills = array_map('strtolower', $requiredSkills);
-        $resumesWithScore = $resumes->map(function ($resume) use ($requiredSkills) {
-            $resumeSkills = array_map('strtolower', $resume->ai_results['skills'] ?? []);
-            $matches = array_intersect($resumeSkills, $requiredSkills);
+    protected function scoreAndSortResumes(Collection $resumes, array $requiredSkillIds): Collection {
+        $resumesWithScore = $resumes->map(function ($resume) use ($requiredSkillIds) {
+            $resumeSkillIds = $resume->searchTags->pluck('id')->toArray();
+            $matches = array_intersect($resumeSkillIds, $requiredSkillIds);
             $score = count($matches);
             $resume->score = $score;
-            $resume->matched_skills = $matches; 
+            $resume->matched_skills = $score;
             return $resume;
         })
         ->filter(function ($resume) {

@@ -17,43 +17,28 @@ class UploadedResumeSeeder extends Seeder
             'user_id' => 3,
             'job_opening_id' => 1,
             'resume_file_name' => 'example_filename.pdf',
-            'ai_results' => [
-                'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Java', 'Spring Boot'],
-            ],
         ]);
         UploadedResume::create([
             'user_id' => 4,
             'job_opening_id' => 1,
             'resume_file_name' => 'example_2_filename.pdf',
-            'ai_results' => [
-                'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Node.js'],
-            ],
         ]);
         UploadedResume::create([
             'user_id' => 5,
             'job_opening_id' => 1,
             'resume_file_name' => 'example_3_filename.pdf',
-            'ai_results' => [
-                'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Node.js'],
-            ],
         ]);
         UploadedResume::create([
             'user_id' => 6,
             'job_opening_id' => 1,
             'resume_file_name' => 'example_4_filename.pdf',
-            'ai_results' => [
-                'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Node.js'],
-            ],
-            'resume_status' => 'processing'
+            // 'resume_status' => 'processing'
         ]);
         UploadedResume::create([
             'user_id' => 7,
             'job_opening_id' => 2,
             'resume_file_name' => 'example_5_filename.pdf',
-            'ai_results' => [
-                'skills' => ['PHP', 'Laravel', 'MySQL', 'Docker', 'Node.js'],
-            ],
-            'resume_status' => 'processing'
+            // 'resume_status' => 'processing'
         ]);
     }
 }
