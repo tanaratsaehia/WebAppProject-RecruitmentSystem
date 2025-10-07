@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\UploadedResume;
 use App\Models\JobOpening;
+use App\Models\ApplyInfomation;
+use App\Models\User;
+use Illuminate\Validation\Rule;
 class ResumeUploadController extends Controller
 {
     // แสดงฟอร์ม
@@ -18,10 +21,12 @@ class ResumeUploadController extends Controller
             ->first();
         $item = JobOpening::where('id',$id)->first();
 
+        $lastInfo = ApplyInfomation::where('user_id',$userId)->orderBy('id','desc')->first();
         return view('upload-resume', [
             'id' => $id,
             'uploaded' => $uploaded,
-            'item' => $item
+            'item' => $item,
+            'lateInfo' => $lastInfo,
         ]);
     }
 
@@ -30,14 +35,49 @@ class ResumeUploadController extends Controller
     {
         $request->validate([
             'resume' => 'required|mimes:pdf|max:3072',
+            'Email' => [
+                'required',
+                'email',
+                'max:225',
+                Rule::unique('users', 'email')->ignore(Auth::id()),
+            ],
+            'Tel' => [
+            'required',
+            'string',
+            'max:20',
+            Rule::unique('users', 'phone_number')->ignore(Auth::id()),
+            ],
+            'soft_skill' => 'required|string',
+            'applying_purpose' => 'required|string',
+        ],[
+            'Email.unique' => 'This email address is already in use',
+            'Tel.unique' => 'This phone number is already in use',
         ]);
 
         if (!$request->hasFile('resume')) {
-            return back()->with('error', 'กรุณาเลือกไฟล์ก่อนกดอัปโหลด');
+            return back()->with('error', 'Please select a file before proceeding with the upload');
         }
 
+        $email = $request->input('Email');
+        $tel = $request->input('Tel');
         $file = $request->file('resume');
         $userId = Auth::id();
+
+        $softSkill = $request->input('soft_skill');
+        $applyingPurpose = $request->input('applying_purpose');
+
+        $user = User::findOrFail($userId);
+        $user->email = $email;
+        $user->phone_number = $tel;
+        $user->save();
+
+        $searchAttributes = [
+            'user_id' => $userId,
+            'soft_skill' => $softSkill,
+            'applying_purpose' => $applyingPurpose,
+        ];
+
+        $apply_info = ApplyInfomation::firstOrCreate($searchAttributes);
 
         /*$uploaded = UploadedResume::where('user_id', $userId)
             ->where('job_opening_id', operator: $jobOpeningId)
@@ -60,7 +100,7 @@ class ResumeUploadController extends Controller
                 'resume_file_name' => $file->getClientOriginalName(),
                 'resume_path' => $newPath,
                 'resume_size' => $file->getSize(),
-                'apply_infomations_id' => 1,
+                'apply_infomation_id' => $apply_info->id,
             ]
         );
         return back()->with('updated_resume', $file->getClientOriginalName());
@@ -114,12 +154,12 @@ class ResumeUploadController extends Controller
             ->where('job_opening_id', $jobOpeningId)
             ->firstOrFail();
 
-        $filePath = $resume->resume_path;
+    $filePath = $resume->resume_path;
 
-        // เช็กว่ามีไฟล์จริงไหม
-        if (!Storage::disk('private')->exists($filePath)) {
-            return redirect()->back()->with('error', 'ไม่พบไฟล์ในระบบ');
-        }
+    // เช็กว่ามีไฟล์จริงไหม
+    if (!Storage::disk('private')->exists($filePath)) {
+        return redirect()->back()->with('error', 'ไม่พบไฟล์ในระบบ');
+    }
 
         // ดึง path จริงใน storage (private)
         $absolutePath = Storage::disk('private')->path($filePath);
