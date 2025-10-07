@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\JobOpening;
 use App\Models\User;
+use App\Models\SearchTag;
 
 class UploadedResume extends Model
 {
@@ -29,5 +30,9 @@ class UploadedResume extends Model
 
     public function jobOpening(){
         return $this->belongsTo(JobOpening::class);
+    }
+
+    public function searchTags(){
+        return $this->belongsToMany(SearchTag::class);
     }
 }

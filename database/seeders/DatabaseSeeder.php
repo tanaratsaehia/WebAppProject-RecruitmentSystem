@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             UploadedResumeSeeder::class,
             SearchTagSeeder::class,
             JobOpeningSearchTagSeeder::class,
+            UploadedResumeSearchTagSeeder::class,
         ]);
     }
 }
