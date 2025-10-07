@@ -49,44 +49,52 @@
                     @csrf
                     <input type="hidden" name="status_action" class="status-action-input" value="">
                     
-                    <div class="border border-dark rounded-2 p-2 d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center flex-grow-1">
-                            <img src="{{ asset('images/pdf_icon.png') }}" alt="PDF" class="me-3" style="width: 25px; height: 30px;">
-                            <p class="fw-medium mb-0 me-4 text-truncate" style="max-width: 250px;">
-                                {{$resume->resume_file_name}}
-                            </p>
-                            <span class="fs-6 py-2 px-3">{{$resume->user->email}}</span>
-                            @if ($resume->score > 0)
-                                <span class="fs-6 py-2 px-3">
-                                    Match <span class="fw-bold">{{ $resume->score }}</span>/{{ count($job_skills) }} skill
-                                </span>
-                            @endif
+                    <div class="border border-dark rounded-2 p-2">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('images/pdf_icon.png') }}" alt="PDF" class="me-3" style="width: 25px; height: 30px;">
+                                
+                                <a href="{{ route('home.upload-resume.viewUser',['job_id' => $resume->jobOpening->id, 'user_id'=>$resume->user->id]) }}"
+                                    class="fw-medium mb-0 me-4 text-truncate" style="max-width: 250px;">
+                                    {{$resume->resume_file_name}}
+                                </a>
+                                <span class="fs-6 py-2 px-3">{{$resume->user->email}}</span>
+                                @if ($resume->score > 0)
+                                    <span class="fs-6 py-2 px-3">
+                                        Match <span class="fw-bold">{{ $resume->score }}</span>/{{ count($job_skills) }} skill
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="d-flex align-items-center py-2 px-3">
+                                <p>Soft skill: {{$resume->applyInfomation->soft_skill}}</p>
+                            </div>
+                            <div class="d-flex align-items-center ms-auto">
+                                @if ($resume->resume_status == "unread")
+                                    <img src="{{ asset('images/marked_gray_icon.png') }}" 
+                                        alt="Mark Icon" 
+                                        class="me-3 action-button" 
+                                        data-action="mark"
+                                        style="width: auto; height: 30px; cursor: pointer;">
+                                @else
+                                    <img src="{{ asset('images/marked_yellow_icon.png') }}" 
+                                        alt="Mark Icon" 
+                                        class="me-3 action-button" 
+                                        data-action="mark"
+                                        style="width: auto; height: 30px; cursor: pointer;">
+                                @endif
+                                <button type="button" 
+                                        class="btn btn-sm btn-outline-danger me-2 action-button" 
+                                        data-action="reject">
+                                    Reject
+                                </button>
+                                <button type="button" 
+                                        class="btn btn-sm btn-success text-white action-button" 
+                                        data-action="accept">
+                                    Accept
+                                </button>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center ms-auto">
-                            @if ($resume->resume_status == "unread")
-                                <img src="{{ asset('images/marked_gray_icon.png') }}" 
-                                    alt="Mark Icon" 
-                                    class="me-3 action-button" 
-                                    data-action="mark"
-                                    style="width: auto; height: 30px; cursor: pointer;">
-                            @else
-                                <img src="{{ asset('images/marked_yellow_icon.png') }}" 
-                                    alt="Mark Icon" 
-                                    class="me-3 action-button" 
-                                    data-action="mark"
-                                    style="width: auto; height: 30px; cursor: pointer;">
-                            @endif
-                            <button type="button" 
-                                    class="btn btn-sm btn-outline-danger me-2 action-button" 
-                                    data-action="reject">
-                                Reject
-                            </button>
-                            <button type="button" 
-                                    class="btn btn-sm btn-success text-white action-button" 
-                                    data-action="accept">
-                                Accept
-                            </button>
-                        </div>
+                        <p>Purpose: {{$resume->applyInfomation->applying_purpose}}</p>
                     </div>
                 </form>
                 

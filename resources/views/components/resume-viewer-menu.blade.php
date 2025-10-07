@@ -16,13 +16,6 @@
         </a>
     </div>
     <div class="col-auto p-0 ms-2">
-        <a href="{{ route('resume-viewer.processing') }}" class="p-1 text-decoration-none d-flex align-items-center btn 
-            {{ request()->routeIs('resume-viewer.processing') ? 'bg-primary text-white' : 'btn-outline-primary' }} px-2 py-1"> 
-            <img src="{{ asset('images/loading_icon.png') }}" alt="Processing Icon" style="width: 25px; height: 25px;" class="me-2">
-            <p class="text-2xl font-medium fs-6 fw-bold mb-0">Processing</p>
-        </a>
-    </div>
-    <div class="col-auto p-0 ms-2">
         <a href="{{ route('resume-viewer.replied') }}" class="p-1 text-decoration-none d-flex align-items-center btn 
             {{ request()->routeIs('resume-viewer.replied') ? 'bg-primary text-white' : 'btn-outline-primary' }} px-2 py-1"> 
             <img src="{{ asset('images/correct_thick_icon.png') }}" alt="Replied Icon" style="width: 20px; height: 20px;" class="me-2">

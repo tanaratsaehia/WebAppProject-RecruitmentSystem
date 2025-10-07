@@ -53,12 +53,14 @@ class ResumeUploadController extends Controller
         UploadedResume::updateOrCreate(
             [
                 'user_id' => $userId,
-                'job_opening_id' => $jobOpeningId
+                'job_opening_id' => $jobOpeningId,
+                
             ],
             [
                 'resume_file_name' => $file->getClientOriginalName(),
                 'resume_path' => $newPath,
                 'resume_size' => $file->getSize(),
+                'apply_infomations_id' => 1,
             ]
         );
         return back()->with('updated_resume', $file->getClientOriginalName());
@@ -106,27 +108,53 @@ class ResumeUploadController extends Controller
     }
 
     public function view($jobOpeningId)
-{
-    $userId = Auth::id();
-    $resume = UploadedResume::where('user_id', $userId)
-        ->where('job_opening_id', $jobOpeningId)
-        ->firstOrFail();
+    {
+        $userId = Auth::id();
+        $resume = UploadedResume::where('user_id', $userId)
+            ->where('job_opening_id', $jobOpeningId)
+            ->firstOrFail();
 
-    $filePath = $resume->resume_path;
+        $filePath = $resume->resume_path;
 
-    // เช็กว่ามีไฟล์จริงไหม
-    if (!Storage::disk('private')->exists($filePath)) {
-        return redirect()->back()->with('error', 'ไม่พบไฟล์ในระบบ');
+        // เช็กว่ามีไฟล์จริงไหม
+        if (!Storage::disk('private')->exists($filePath)) {
+            return redirect()->back()->with('error', 'ไม่พบไฟล์ในระบบ');
+        }
+
+        // ดึง path จริงใน storage (private)
+        $absolutePath = Storage::disk('private')->path($filePath);
+
+        // ส่งไฟล์ออกให้เบราว์เซอร์เปิดดูได้ เช่น PDF
+        return response()->file($absolutePath, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$resume->resume_file_name.'"'
+        ]);
     }
+    public function viewUser($job_id, $user_id)
+    {
+        $resume = UploadedResume::where('user_id', $user_id)
+            ->where('job_opening_id', $job_id)
+            ->firstOrFail();
 
-    // ดึง path จริงใน storage (private)
-    $absolutePath = Storage::disk('private')->path($filePath);
+        $filePath = $resume->resume_path;
+        // dd(["file_path" => $filePath,
+        //     "disk_path" => Storage::disk('private')->path($filePath),
+        //     "is_path_exist" => Storage::disk('private')->exists($filePath)
+        // ]);
 
-    // ส่งไฟล์ออกให้เบราว์เซอร์เปิดดูได้ เช่น PDF
-    return response()->file($absolutePath, [
-        'Content-Type' => 'application/pdf',
-        'Content-Disposition' => 'inline; filename="'.$resume->resume_file_name.'"'
-    ]);
-}
+        // เช็กว่ามีไฟล์จริงไหม
+        if (!Storage::disk('private')->exists($filePath)) {
+            return back()->with('error', 'ไม่พบไฟล์ในระบบ');
+        }
+
+        // ดึง path จริงใน storage (private)
+        $absolutePath = Storage::disk('private')->path($filePath);
+
+        // ส่งไฟล์ออกให้เบราว์เซอร์เปิดดูได้ เช่น PDF
+        return response()->file($absolutePath, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$resume->resume_file_name.'"'
+        ]);
+    }
 
 }

@@ -22,7 +22,7 @@ class UploadedResume extends Model
         'resume_path',
         'resume_size',
         'resume_status',
-        'ai_results',
+        'apply_infomations_id',
     ];
 
     public function user(){
@@ -38,6 +38,6 @@ class UploadedResume extends Model
     }
 
     public function applyInfomation(){
-        return $this->hasOne(ApplyInfomation::class);
+        return $this->belongsTo(ApplyInfomation::class);
     }
 }
