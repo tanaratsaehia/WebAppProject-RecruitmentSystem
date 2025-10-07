@@ -10,6 +10,7 @@ use App\Models\JobOpening;
 use App\Models\ApplyInfomation;
 use App\Models\User;
 use Illuminate\Validation\Rule;
+use App\Models\SearchTag;
 class ResumeUploadController extends Controller
 {
     // แสดงฟอร์ม
@@ -20,6 +21,10 @@ class ResumeUploadController extends Controller
             ->where('job_opening_id', $id)
             ->first();
         $item = JobOpening::where('id',$id)->first();
+        $all_skills = SearchTag::all();
+
+        $user_data = User::find($userId);
+        $user_selected_skills = $user_data ? $user_data->searchTags: collect();
 
         $lastInfo = ApplyInfomation::where('user_id',$userId)->orderBy('id','desc')->first();
         return view('upload-resume', [
@@ -27,6 +32,8 @@ class ResumeUploadController extends Controller
             'uploaded' => $uploaded,
             'item' => $item,
             'lateInfo' => $lastInfo,
+            'all_skills' => $all_skills,
+            'user_selected_skills' => $user_selected_skills,
         ]);
     }
 

@@ -34,7 +34,7 @@
             </div>
 
             <div class="card m-md-4" style="width: 70rem;">
-                <h1 class="fs-1 fw-bold pt-3">Apply</h1>
+                <h1 class="fs-1 fw-bold pt-3">Apply here</h1>
                 @if(empty($uploaded) or empty($uploaded->resume_path))
                     <form id="resume-form"
                         action="{{ route('home.upload-resume.upload', $id) }}"
@@ -63,6 +63,22 @@
                                     <textarea name="applying_purpose" id="Applying-Purpose" class="form-control" placeholder="Applying Purpose required here..." required>{{ $lateInfo->applying_purpose }}</textarea>
                                 </div>
                             </div>
+                        </div>
+                        <div class="">
+                            <label for="exampleSelect" class="form-label fw-semibold fs-5">Skills</label>
+                            <select class="form-select" id="exampleSelect" multiple name="skills[]">
+                                @php
+                                    $selectedSkillIds = $user_selected_skills->pluck('id')->toArray();
+                                @endphp
+                                @forelse ($all_skills as $skill)
+                                    <option value="{{ $skill->id }}" 
+                                        {{ in_array($skill->id, $selectedSkillIds) ? 'selected' : '' }}> 
+                                        {{ $skill->name }}
+                                    </option>
+                                @empty
+                                    <option value="" disabled>Not have any skill in DB</option>
+                                @endforelse
+                            </select>
                         </div>
                         {{-- กล่องลาก/คลิกเลือกไฟล์ --}}
                         <div id="drop-zone" class="border rounded p-4 mb-3" style="border:2px dashed #ccc; cursor:pointer;">

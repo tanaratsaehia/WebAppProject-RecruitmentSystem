@@ -47,8 +47,6 @@
             <div class="resume-card mb-3 me-4">
                 <form action="{{ route('resume-viewer.update-status', $resume->id) }}" method="POST" class="resume-action-form" data-resume-name="{{ $resume->resume_file_name }}">
                     @csrf
-                    <input type="hidden" name="status_action" class="status-action-input" value="">
-                    
                     <div class="border border-dark rounded-2 p-2">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
