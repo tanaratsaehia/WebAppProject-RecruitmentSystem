@@ -56,11 +56,11 @@
                             <div class="p-3 flex flex-row align-items-center">
                                 <div class="col mx-3">
                                     <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Solf Skills</label>
-                                    <textarea name="soft_skill" id="Solf-Skill-Input" class="form-control" placeholder="Solf Skills required here..." required>{{ $lateInfo->soft_skill }}</textarea>
+                                    <textarea name="soft_skill" id="Solf-Skill-Input" class="form-control" placeholder="Solf Skills required here..." required>{{ $lateInfo ? $lateInfo->soft_skill : '' }}</textarea>
                                 </div>
                                 <div class="col mx-3">
                                     <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Apply Purpose</label>
-                                    <textarea name="applying_purpose" id="Applying-Purpose" class="form-control" placeholder="Applying Purpose required here..." required>{{ $lateInfo->applying_purpose }}</textarea>
+                                    <textarea name="applying_purpose" id="Applying-Purpose" class="form-control" placeholder="Applying Purpose required here..." required>{{ $lateInfo ? $lateInfo->applying_purpose : '' }}</textarea>
                                 </div>
                             </div>
                         </div>
