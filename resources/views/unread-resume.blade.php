@@ -47,8 +47,6 @@
             <div class="resume-card mb-4 me-4">
                 <form action="{{ route('resume-viewer.update-status', $resume->id) }}" method="POST" class="resume-action-form" data-resume-name="{{ $resume->resume_file_name }}">
                     @csrf
-                    <input type="hidden" name="status_action" class="status-action-input" value="">
-                    
                     <div class="border border-dark rounded-2 p-2">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
@@ -112,7 +110,7 @@
             icon: 'success',
             title: 'Success!',
             text: '{{session('success')}}',
-            confirmButtonText: "ยืนยัน",
+            confirmButtonText: "Confirm",
         });
     @endif
     document.addEventListener("DOMContentLoaded", function () {
@@ -129,7 +127,7 @@
             clearButton.addEventListener('click', function (e) {
                 // 1. Show Confirmation Dialog
                 Swal.fire({
-                    title: "ยืนยันการล้างแท็ก?",
+                    title: "Do you want to clear tags?",
                     text: "คุณต้องการล้างแท็กทั้งหมดสำหรับงานนี้หรือไม่",
                     icon: "warning",
                     showCancelButton: true,

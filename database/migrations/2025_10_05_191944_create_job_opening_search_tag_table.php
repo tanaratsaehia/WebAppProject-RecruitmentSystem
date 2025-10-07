@@ -28,4 +28,4 @@ return new class extends Migration
     }
 };
 // php artisan make:migration create_search_tag_uploaded_resume_table --create=search_tag_uploaded_resume
-// php artisan make:migration create_search_tag_users_table --create=search_tag_users
+// php artisan make:migration create_search_tag_user_table --create=search_tag_user
