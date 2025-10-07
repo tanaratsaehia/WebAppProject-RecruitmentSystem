@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobOpeningController;
 use App\Http\Controllers\ResumeViewerController;
+use App\Http\Controllers\ResumeUploadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,10 +52,13 @@ Route::middleware([
         Route::get('/resume-viewer/replied', [ResumeViewerController::class,'replied'])->name("resume-viewer.replied");
     });
 
-    // upload
-    Route::get('/home/upload-resume/{id}', function($id){
-        return view('upload-resume', compact('id'));
-    })->name('home.upload-resume');
+    Route::middleware(['role:user'])->group(function (){
+        // upload
+        Route::get('/home/upload-resume/{id}', [ResumeUploadController::class, 'showUploadForm'])->name('home.upload-resume.form');
+        Route::post('/home/upload-resume/{id}', [ResumeUploadController::class, 'upload'])->name('home.upload-resume.upload');
+        Route::delete('/home/upload-resume/{id}', [ResumeUploadController::class, 'destroy'])->name('home.upload-resume.delete');
+        Route::get('/home/upload-resume/{id}/download',[ResumeUploadController::class, 'download'])->name('home.upload-resume.download');
+    });
 });
 
 Route::get('/testing', function () {
