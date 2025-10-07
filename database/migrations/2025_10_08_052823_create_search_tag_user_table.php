@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('search_tag_user', function (Blueprint $table) {
             // $table->id();
-            $table->foreignId('users_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('search_tag_id')->constrained()->cascadeOnDelete();
-            $table->primary(['users_id', 'search_tag_id']);
+            $table->primary(['user_id', 'search_tag_id']);
             $table->timestamps();
         });
     }
