@@ -1,12 +1,12 @@
 <?php
-    $_SESSION['currentPage'] = "เพิ่ม/แก้ไขงานที่เปิดรับสมัคร";
+    $_SESSION['currentPage'] = "Add/Edit jobs";
 ?>
 
 <x-app-layout>
     <div class="mt-10">
         <div class="w-75 mx-auto">
             @if (isset($job_for_edit))
-                <h1 class="text-2xl font-medium fs-2 fw-bold">แก้ไขงาน</h1>
+                <h1 class="text-2xl font-medium fs-2 fw-bold">Edit job</h1>
                 <form action="{{ route('edit-hiring-job.save') }}" method="post" class="mt-2 mb-2">
                     @csrf 
                     <input type="hidden" name="id" value="{{$job_for_edit->id}}">
@@ -32,7 +32,7 @@
                     </div>
                 </form>
             @else
-                <h1 class="text-2xl font-medium fs-2 fw-bold">เพิ่มงาน</h1>
+                <h1 class="text-2xl font-medium fs-2 fw-bold">Add job</h1>
                 <form action="{{ route('edit-hiring-job.add') }}" method="post" class="mt-2 mb-2"> 
                     @csrf 
                     <div class="row ">
@@ -56,7 +56,7 @@
         </div>
         <hr>  
         <div class="w-75 mx-auto mt-10">
-            <h1 class="text-2xl font-medium fs-2 fw-bold mb-3">งานที่เปิดรับสมัคร</h1>
+            <h1 class="text-2xl font-medium fs-2 fw-bold mb-3">Jobs</h1>
             @forelse ($all_job_opening as $item)
                 <div class="border border-dark rounded-2 mb-3">
                     <div class="m-2 d-flex align-items-center">
@@ -77,8 +77,8 @@
                     </div>
                 </div>
             @empty
-                <h1 class="text-4xl font-medium text-danger text-center fs-1 fw-bold mt-5">--- ยังไม่มีงานที่เปิดรับสมัคร ---</h1>
-                <h1 class="text-5xl font-medium text-warning text-center mt-5">*** สามารถรัน Seeder ได้นะครับ "php artisan migrate:fresh --seed" ***</h1>
+                <p class="font-medium text-danger fw-bold mt-3">--- No opening job ---</p>
+                <p class="text-5xl font-medium text-warning mt-2">*** You can run seeder with "php artisan migrate:fresh --seed" ***</p>
             @endforelse
         </div>
     </div>

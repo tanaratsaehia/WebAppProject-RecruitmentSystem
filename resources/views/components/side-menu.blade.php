@@ -54,7 +54,7 @@
             </div>
         @endif
 
-        @if (auth()->user()->role == "superHR")
+        <!-- @if (auth()->user()->role == "superHR")
             <div class="w-100 ps-2 mt-2">
                 <a href="#" class="p-0 m-0 w-100">
                     <div class="h-16 d-flex align-items-center">
@@ -63,7 +63,7 @@
                     </div>
                 </a>
             </div>
-        @endif
+        @endif -->
 
 
         <div class="{{ request()->routeIs('testing') ? 'bg-primary' : '' }} w-100 ps-2 mt-2">
