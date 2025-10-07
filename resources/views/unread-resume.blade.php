@@ -1,5 +1,5 @@
 <?php
-    $_SESSION['currentPage'] = "Unread Resume";
+    $_SESSION['currentPage'] = "Resume Viewer";
     $_SESSION['all_job_opening'] = $all_job_opening;
     $_SESSION['selected_job_id'] = $selected_job_id;
     $_SESSION['base_url'] = route("resume-viewer.unread");
@@ -14,38 +14,21 @@
     <div class="mt-4 mb-5 me-4 ps-5">
         <form action="{{ route('resume-viewer.unread', ['id' => $selected_job_id]) }}" method="post" class="" id="skill-form">
             @csrf
-            <div class="row g-4">
-                <!-- Multiple selector power by Choices.js -->
-                <div class="col-12 col-md-6">
-                    <label for="exampleSelect" class="form-label fw-semibold fs-5">Skills</label>
-                    <select class="form-select" id="exampleSelect" multiple name="skills[]">
-                        @php
-                            $selectedSkillIds = $job_skills->pluck('id')->toArray();
-                        @endphp
-                        @forelse ($all_skills as $skill)
-                            <option value="{{ $skill->id }}" 
-                                {{ in_array($skill->id, $selectedSkillIds) ? 'selected' : '' }}> 
-                                {{ $skill->name }}
-                            </option>
-                        @empty
-                            <option value="" disabled>Not have any skill in DB</option>
-                        @endforelse
-                    </select>
-                </div>
-
-                <div class="col-12 col-md-6">
-                <label for="searchText" class="form-label fw-semibold row m-0 mb-2 fs-5">
-                    Text 
-                    <span class="text-danger col ">**text feature not implement!</span>
-                </label>
-                <textarea 
-                    name="jobDescription" 
-                    id="searchText" 
-                    class="form-control" 
-                    rows="3" 
-                    placeholder="Write a short description of the job..."
-                ></textarea>
-                </div>
+            <div class="">
+                <label for="exampleSelect" class="form-label fw-semibold fs-5">Skills</label>
+                <select class="form-select" id="exampleSelect" multiple name="skills[]">
+                    @php
+                        $selectedSkillIds = $job_skills->pluck('id')->toArray();
+                    @endphp
+                    @forelse ($all_skills as $skill)
+                        <option value="{{ $skill->id }}" 
+                            {{ in_array($skill->id, $selectedSkillIds) ? 'selected' : '' }}> 
+                            {{ $skill->name }}
+                        </option>
+                    @empty
+                        <option value="" disabled>Not have any skill in DB</option>
+                    @endforelse
+                </select>
             </div>
 
             <div class="mt-3 d-flex justify-content-between">

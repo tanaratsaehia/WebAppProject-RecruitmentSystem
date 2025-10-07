@@ -17,8 +17,10 @@ class UploadedResume extends Model
         'user_id',
         'job_opening_id',
         'resume_file_name',
-        'ai_results',
+        'resume_path',
+        'resume_size',
         'resume_status',
+        'ai_results',
     ];
 
     public function user(){

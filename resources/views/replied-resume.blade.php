@@ -1,5 +1,5 @@
 <?php
-    $_SESSION['currentPage'] = "Replied Resume";
+    $_SESSION['currentPage'] = "Resume Viewer";
     $_SESSION['all_job_opening'] = $all_job_opening;
     $_SESSION['selected_job_id'] = $selected_job_id;
     $_SESSION['base_url'] = route("resume-viewer.replied");

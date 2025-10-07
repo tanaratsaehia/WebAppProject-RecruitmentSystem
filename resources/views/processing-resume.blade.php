@@ -1,5 +1,5 @@
 <?php
-    $_SESSION['currentPage'] = "Processing Resume";
+    $_SESSION['currentPage'] = "Resume Viewer";
     $groupedResumes = $filtered_resume->groupBy('jobOpening.job_title');
 ?>
 
