@@ -17,10 +17,13 @@ use App\Http\Controllers\ResumeUploadController;
 */
 // session_start();
 
-Route::get('/', function () {
-    // return view('welcome');
-    return redirect()->route('home'); 
-})->name('welcome');
+/*Route::get('/', function () {
+    return view('welcome');
+    //return redirect()->route(route: 'home'); 
+    //return view('home-with-out-login');
+})->name('welcome');*/
+
+Route::get('/',[HomeController::class,'indexWithOutLogin'])->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
