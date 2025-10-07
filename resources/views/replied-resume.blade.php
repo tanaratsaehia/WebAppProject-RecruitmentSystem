@@ -12,9 +12,9 @@
         <x-job-selecter></x-job-selecter>
     </div>
     <div class="mt-5 mb-4 ps-5 w-100">
-        <p class="text-2xl mt-1 font-medium fs-4 fw-bold mb-2">Replied ({{$filtered_resume->count()}} files)</p>
+        <p class="text-2xl mt-1 font-medium fs-5 mb-2">Replied ({{$filtered_resume->count()}} files)</p>
         @forelse ($filtered_resume as $resume)
-            <div class="resume-card mb-3 me-4">
+            <div class="resume-card mb-4 me-4">
                 <form action="{{ route('resume-viewer.update-status', $resume->id) }}" method="POST" class="resume-action-form" data-resume-name="{{ $resume->resume_file_name }}">
                     @csrf
                     <input type="hidden" name="status_action" class="status-action-input" value="">
@@ -64,6 +64,7 @@
                                 </button>
                             </div>
                         </div>
+                        <hr class="my-2">
                         <p>Purpose: {{$resume->applyInfomation->applying_purpose}}</p>
                     </div>
                 </form>
