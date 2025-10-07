@@ -65,6 +65,8 @@ Route::middleware([
         Route::post('/home/upload-resume/{id}', [ResumeUploadController::class, 'upload'])->name('home.upload-resume.upload');
         Route::delete('/home/upload-resume/{id}', [ResumeUploadController::class, 'destroy'])->name('home.upload-resume.delete');
         Route::get('/home/upload-resume/{id}/download',[ResumeUploadController::class, 'download'])->name('home.upload-resume.download');
+        Route::get('/home/upload-resume/{id}/view', [ResumeUploadController::class, 'view'])->name('home.upload-resume.view');
+
     });
 });
 

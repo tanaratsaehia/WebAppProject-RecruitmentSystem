@@ -2,7 +2,7 @@
     <div class="h-20 ms-3 mt-4 d-flex">
         <img src="{{ asset('images/side_bar_logo_white.png') }}" alt="" style="width: 25%; height: auto;">
         <div class="d-flex align-items-center">
-            <p class="ms-3 text-2xl fs-4 text-white">Resume Parsing</p>
+            <p class="ms-3 text-2xl fs-4 text-white">Recruitment System</p>
         </div>
     </div>
     <!-- if same route name -->

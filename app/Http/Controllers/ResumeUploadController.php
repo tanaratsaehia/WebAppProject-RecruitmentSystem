@@ -104,4 +104,29 @@ class ResumeUploadController extends Controller
 
         return Storage::disk('private')->download($resume->resume_path, $resume->resume_file_name);
     }
+
+    public function view($jobOpeningId)
+{
+    $userId = Auth::id();
+    $resume = UploadedResume::where('user_id', $userId)
+        ->where('job_opening_id', $jobOpeningId)
+        ->firstOrFail();
+
+    $filePath = $resume->resume_path;
+
+    // เช็กว่ามีไฟล์จริงไหม
+    if (!Storage::disk('private')->exists($filePath)) {
+        return redirect()->back()->with('error', 'ไม่พบไฟล์ในระบบ');
+    }
+
+    // ดึง path จริงใน storage (private)
+    $absolutePath = Storage::disk('private')->path($filePath);
+
+    // ส่งไฟล์ออกให้เบราว์เซอร์เปิดดูได้ เช่น PDF
+    return response()->file($absolutePath, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="'.$resume->resume_file_name.'"'
+    ]);
+}
+
 }

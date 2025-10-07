@@ -9,37 +9,29 @@
         </h1>
     </x-slot>
 
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item fs-5"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item fs-5 active" aria-current="page">Upload Resume</li>
-        </ol>
-    </nav>
-
     <div class="container">
         <div class="row justify-content-center">
-            <div class="card m-md-4" >
-                    <div class="card-body">
+            <div class="card m-md-4" style="width: 70rem;">
+                <div class="card-body">
+                    <h1 class="card-title fs-2 fw-bold">
+                        {{$item->job_title}}
+                    </h1>
+                    <p class="card-text fs-4">{{$item->description}}</p>
 
-                        <h1 class="card-title fs-2 fw-bold">
-                        รับสมัคร {{$item->job_title}}
-                        </h1>
-                        <p class="card-text fs-4">{{$item->description}}</p>
-
-                        <h3 class="mt-4 fw-bold fs-4">
-                            คุณสมบัติ:
-                        </h3>
-                        <ul class="list-group list-group-flush">
-                            <!-- <li class="list-group-item">● {skill_required}</li> -->
-                            <?php $correct_string = str_replace('\n', "\n", $item->skill_required); ?>
-                            @foreach (array_filter(explode("\n", $correct_string)) as $skill)
-                                <li class="list-group-item ml-6 py-1 text-gray-700">
-                                    ● {{ trim($skill) }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    <h3 class="mt-4 fw-bold fs-5">
+                        Preferred Skills & Qualifications:
+                    </h3>
+                    <ul class="list-group list-group-flush">
+                        <!-- <li class="list-group-item">● {skill_required}</li> -->
+                        <?php $correct_string = str_replace('\n', "\n", $item->skill_required); ?>
+                        @foreach (array_filter(explode("\n", $correct_string)) as $skill)
+                            <li class="list-group-item ml-6 py-1 text-gray-700">
+                                ● {{ trim($skill) }}
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
+            </div>
 
             <div class="card m-md-4" style="width: 70rem;">
                 <h1 class="fs-1 fw-bold pt-3">Add Resume File</h1>
@@ -60,14 +52,14 @@
                             </label>
 
                             <input type="file" name="resume" id="resume" accept="application/pdf" style="display:none;">
-                            <div class="small text-muted mt-2">หรือ ลากไฟล์มาวางที่กล่องนี้</div>
+                            <div class="small text-muted mt-2">Or drag and drop your file here</div>
                         </div>
 
                         {{-- PREVIEW: แสดงไฟล์ที่เพิ่งเลือก (client-side) --}}
                         <div id="selected-preview" class="mb-3" style="display:none;">
                             <div class="card p-2 d-flex align-items-center" style="max-width:540px; margin:0 auto; background-color: #e5e0ecff;">
                                 <div class="mb-2 fw-bold text-primary">
-                                    ไฟล์ที่กำลังเลือก สำหรับอัพโหลด
+                                    Selected file for upload
                                 </div>
                                 <div class="d-flex align-items-center w-100">
                                     <div class="me-3" style="width:48px; height:48px; display:flex; align-items:center; justify-content:center;">
@@ -97,55 +89,38 @@
                         <div style="margin-top:8px; text-align:center;">
                             <button class="btn btn-outline-dark" type="submit" style="padding:8px 6rem;">Submit</button>
                         </div>
-                        <div class="mt-3" style="margin:0 auto;">
-                            <div class="card p-2">
-                                {{-- หัวข้อแจ้งผู้ใช้ --}}
-                                <div class="text-4xl font-medium text-danger text-center fs-1 fw-bold mt-2">
-                                    --- ยังไม่มีไฟล์ที่อัพโหลดแล้ว ในขณะนี้ ---
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 {{-- ถ้ามีไฟล์ที่เคยอัปโหลดแล้ว (จาก DB) ให้แสดงด้านล่าง --}}
                 @elseif(isset($uploaded) && $uploaded && $uploaded->resume_path)
-                    <div class="mt-3" style="margin:0 auto;">
-                        <div class="card p-2">
+                    <div class="mt-3" style="margin:2rem auto;">
+                        <div class="card p-2" style="width: 65rem;">
                             {{-- หัวข้อแจ้งผู้ใช้ --}}
                             <div class="mb-2 fw-bold text-primary text-center fs-4">
-                                อัปโหลดไฟล์ไปแล้ว
+                                File uploaded successfully
                             </div>
-
+                            <hr>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="me-3" style="width:48px; height:48px; display:flex; align-items:center; justify-content:center;">
                                     <img src="{{ asset('images/pdf_icon.png') }}" class="w-8 h-10" alt="pdf">
                                 </div>
 
                                 {{-- ข้อมูลไฟล์ --}}
-                                <div class="flex-grow-1 text-start">
+                                <div class="flex-grow-1 text-start me-3">
                                     <div class="fw-bold">{{ $uploaded->resume_file_name }}</div>
                                     <div class="small text-muted">
                                         {{ number_format($uploaded->resume_size / 1024, 1) }} KB
                                         &nbsp;|&nbsp;
-                                        อัปโหลดเมื่อ {{ $uploaded->updated_at->format('d/m/Y H:i') }}
+                                        Uploaded on {{ $uploaded->updated_at->format('d/m/Y H:i') }}
                                     </div>
                                 </div>
 
-                                {{-- ปุ่ม Download / Delete --}}
+                                {{-- ปุ่ม Download --}}
                                 <div>
                                     <a href="{{ route('home.upload-resume.download', ['id' => $id]) }}" class="btn btn-sm btn-primary">Download</a>
-
-                                    <form action="{{ route('home.upload-resume.delete', ['id' => $id]) }}"
-                                        method="POST"
-                                        class="delete-form"
-                                        style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                                    </form>
+                                    <a href="{{ route('home.upload-resume.view', ['id' => $id]) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
                                 </div>
                             </div>
                         </div>
-                        <p class="mt-3 fw-bold text-danger font-medium">--- หากผู้ใช้งานต้องการอัพโหลดไฟล์ใหม่ จำเป็นต้องลบไฟล์เก่าออกก่อน จึงจะอัพโหลดไฟล์ได้ ---</p>
                     </div>
                 @endif
             </div>
