@@ -25,7 +25,6 @@
         <div class="row justify-content-center">
             @forelse ($all_job_opening as $item)
                 <div class="card m-md-4" >
-                    <?php $id = 1;?>
                     <div class="card-body">
 
                         <h1 class="card-title fs-2 fw-bold">
@@ -47,7 +46,7 @@
                         </ul>
 
                         <div class="col-12 d-flex justify-content-center mt-3">
-                            <a href="{{ route('home.upload-resume', $item->id) }}" class="btn btn-outline-primary border-dark text-dark col-12 fw-bold fs-5">สมัครเลย</a>
+                            <a href="{{ route('home.upload-resume.form', $item->id) }}" class="btn btn-outline-primary border-dark text-dark col-12 fw-bold fs-5">สมัครเลย</a>
                         </div>
                     </div>
                 </div>
