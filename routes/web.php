@@ -33,6 +33,10 @@ Route::middleware([
     // home
     Route::get('/home', [HomeController::class,'index'])->name("home");
 
+    Route::middleware(['role:superHR'])->group(function () {
+        // Route::get('/admin', [::class,'index'])->name("admin");
+    });
+
     Route::middleware(['role:hr-superHR'])->group(function () {
         // edit hiring job
         Route::get('/edit-hiring-job', [JobOpeningController::class,'index'])->name("edit-hiring-job");
