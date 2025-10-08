@@ -80,7 +80,7 @@
                                         {{ $skill->name }}
                                     </option>
                                 @empty
-                                    <option value="" disabled>Not have any skill in DB</option>
+                                    <option value="" disabled>Not have any skill in DB please run seeder</option>
                                 @endforelse
                             </select>
                         </div>
