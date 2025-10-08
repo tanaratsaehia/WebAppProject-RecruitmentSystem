@@ -22,7 +22,6 @@
                         Preferred Skills & Qualifications:
                     </h3>
                     <ul class="list-group list-group-flush">
-                        <!-- <li class="list-group-item">● {skill_required}</li> -->
                         <?php $correct_string = str_replace('\n', "\n", $item->skill_required); ?>
                         @foreach (array_filter(explode("\n", $correct_string)) as $skill)
                             <li class="list-group-item ml-6 py-1 text-gray-700">
@@ -85,7 +84,6 @@
                                 @endforelse
                             </select>
                         </div>
-                        {{-- กล่องลาก/คลิกเลือกไฟล์ --}}
                         <div id="drop-zone" class="border rounded p-4 mb-3" style="border:2px dashed #ccc; cursor:pointer;">
                             <label for="resume" class="d-block mb-2" style="cursor:pointer;">
                                 <img src="{{ asset('images/upload_clone_icon.png') }}" class="rounded mx-auto d-block w-23 h-20" alt="upload_clone_icon">
@@ -97,8 +95,6 @@
                             <input type="file" name="resume" id="resume" accept="application/pdf" style="display:none;">
                             <div class="small text-muted mt-2">Or drag and drop your file here</div>
                         </div>
-
-                        {{-- PREVIEW: แสดงไฟล์ที่เพิ่งเลือก (client-side) --}}
                         <div id="selected-preview" class="mb-3" style="display:none;">
                             <div class="card p-2 d-flex align-items-center" style="max-width:540px; margin:0 auto; background-color: #e5e0ecff;">
                                 <div class="mb-2 fw-bold text-primary">
@@ -122,22 +118,16 @@
                                 </div>
                             </div>
                         </div>
-
-                        {{-- แสดง error validation (server-side) --}}
                         @error('resume')
                             <div class="text-danger mb-2">{{ $message }}</div>
                         @enderror
-
-                        {{-- ปุ่ม submit --}}
                         <div style="margin-top:8px; text-align:center;">
                             <button class="btn btn-outline-dark" type="submit" style="padding:8px 6rem;">Submit</button>
                         </div>
                     </form>
-                {{-- ถ้ามีไฟล์ที่เคยอัปโหลดแล้ว (จาก DB) ให้แสดงด้านล่าง --}}
                 @elseif(isset($uploaded) && $uploaded && $uploaded->resume_path)
                     <div class="mt-3" style="margin:2rem auto;">
                         <div class="card p-2" style="width: 65rem;">
-                            {{-- หัวข้อแจ้งผู้ใช้ --}}
                             <div class="mb-2 fw-bold text-primary text-center fs-4">
                                 File uploaded successfully
                             </div>
@@ -146,30 +136,13 @@
                                 <div class="me-3" style="width:48px; height:48px; display:flex; align-items:center; justify-content:center;">
                                     <img src="{{ asset('images/pdf_icon.png') }}" class="w-8 h-10" alt="pdf">
                                 </div>
-
-                                {{-- ข้อมูลไฟล์ --}}
                                 <div class="flex-grow-1 text-start me-3">
-                                    {{--<div class="fw-bold">{{ $uploaded->resume_file_name }}</div>--}}
                                     <a href="{{ route('home.upload-resume.view', ['id' => $uploaded->job_opening_id]) }}" class="fw-bold">{{ $uploaded->resume_file_name }}</a>
                                     <div class="small text-muted">
                                         {{ number_format($uploaded->resume_size / 1024, 1) }} KB
                                         &nbsp;|&nbsp;
                                         Uploaded on {{ $uploaded->updated_at->format('d/m/Y H:i') }}
                                     </div>
-                                </div>
-
-                                {{-- ปุ่ม Download และ view --}}
-                                {{-- <div>
-                                    <a href="{{ route('home.upload-resume.download', ['id' => $id]) }}" class="btn btn-sm btn-primary fs-5">Download</a>
-                                    <a href="{{ route('home.upload-resume.view', ['id' => $id]) }}" target="_blank" class="btn btn-sm btn-outline-primary fs-5">View</a>
-                                    <form action="{{ route('home.upload-resume.delete', ['id' => $id]) }}"
-                                            method="POST"
-                                            class="delete-form"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger fs-5">Delete</button>
-                                    </form> --}}
                                 </div>
                             </div>
                         </div>
@@ -230,7 +203,6 @@
             searchPlaceholderValue: 'Search...',
             });
 
-            // format bytes
             function formatBytes(bytes){
                 if(bytes===0) return '0 B';
                 const k = 1024;

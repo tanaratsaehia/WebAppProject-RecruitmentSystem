@@ -25,7 +25,6 @@ class HomeController extends Controller
     public function Applied_Status(){
         $userId = Auth::id();
         $all_resume = UploadedResume::where('user_id', $userId)->get();
-        // dd([$all_resume[0]]);
         return view('applied-status',compact('all_resume'));
     }
 }

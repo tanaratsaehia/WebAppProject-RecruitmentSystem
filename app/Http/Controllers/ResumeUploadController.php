@@ -13,7 +13,6 @@ use Illuminate\Validation\Rule;
 use App\Models\SearchTag;
 class ResumeUploadController extends Controller
 {
-    // แสดงฟอร์ม
     public function showUploadForm($id)
     {
         $userId = Auth::id();
@@ -53,7 +52,6 @@ class ResumeUploadController extends Controller
         ]);
     }
 
-    // อัปโหลดไฟล์ PDF (Private Disk)
     public function upload(Request $request, $jobOpeningId)
     {
         $request->validate([
@@ -108,17 +106,8 @@ class ResumeUploadController extends Controller
 
         $apply_info = ApplyInfomation::firstOrCreate($searchAttributes);
 
-        /*$uploaded = UploadedResume::where('user_id', $userId)
-            ->where('job_opening_id', operator: $jobOpeningId)
-            ->first();*/
-
-        // ตั้งชื่อไฟล์ใหม่
         $fileName = $userId . '_' . now()->format('Ymd_His') . '_Resume.' . $file->getClientOriginalExtension();
-
-        // อัปโหลดไฟล์ใหม่ก่อน
         $newPath = $file->storeAs('resumes', $fileName, 'private');
-
-        // บันทึก DB
         $new_resume = UploadedResume::updateOrCreate(
             [
                 'user_id' => $userId,
@@ -138,9 +127,6 @@ class ResumeUploadController extends Controller
         return back()->with('updated_resume', $file->getClientOriginalName());
     }
 
-
-
-    // ลบไฟล์
     public function destroy($jobOpeningId)
     {
         $userId = Auth::id();
@@ -156,17 +142,11 @@ class ResumeUploadController extends Controller
             }
 
             $resume->delete();
-
-            // return back()->with('deleted_resume', $resumeName);
-            // return $this->showUploadForm($jobOpeningId); 
+            // return back()->with('deleted_resume', $resumeName); 
         }
-
         // return back()->with('error', 'ไม่พบไฟล์ที่จะลบ');
-        // return $this->showUploadForm($jobOpeningId); 
     }
 
-
-    // ดาวน์โหลดไฟล์ (private)
     public function download($jobOpeningId)
     {
         $userId = Auth::id();
@@ -189,16 +169,10 @@ class ResumeUploadController extends Controller
             ->firstOrFail();
 
     $filePath = $resume->resume_path;
-
-    // เช็กว่ามีไฟล์จริงไหม
     if (!Storage::disk('private')->exists($filePath)) {
         return redirect()->back()->with('error', 'ไม่พบไฟล์ในระบบ');
     }
-
-        // ดึง path จริงใน storage (private)
         $absolutePath = Storage::disk('private')->path($filePath);
-
-        // ส่งไฟล์ออกให้เบราว์เซอร์เปิดดูได้ เช่น PDF
         return response()->file($absolutePath, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="'.$resume->resume_file_name.'"'
@@ -209,22 +183,11 @@ class ResumeUploadController extends Controller
         $resume = UploadedResume::where('user_id', $user_id)
             ->where('job_opening_id', $job_id)
             ->firstOrFail();
-
         $filePath = $resume->resume_path;
-        // dd(["file_path" => $filePath,
-        //     "disk_path" => Storage::disk('private')->path($filePath),
-        //     "is_path_exist" => Storage::disk('private')->exists($filePath)
-        // ]);
-
-        // เช็กว่ามีไฟล์จริงไหม
         if (!Storage::disk('private')->exists($filePath)) {
             return back()->with('error', 'ไม่พบไฟล์ในระบบ');
         }
-
-        // ดึง path จริงใน storage (private)
         $absolutePath = Storage::disk('private')->path($filePath);
-
-        // ส่งไฟล์ออกให้เบราว์เซอร์เปิดดูได้ เช่น PDF
         return response()->file($absolutePath, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="'.$resume->resume_file_name.'"'
