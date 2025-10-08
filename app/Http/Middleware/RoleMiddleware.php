@@ -22,7 +22,8 @@ class RoleMiddleware
         if (in_array($userRole, $allowedRoles)) {
             return $next($request);
         }
-        return abort(403, 'Unauthorized action.');
+        return back()->with('not_allowed', true);
+        // return abort(403, 'Unauthorized action.');
         // return redirect('/home');
     }
 }
