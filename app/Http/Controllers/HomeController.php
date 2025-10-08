@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\JobOpening;
+use App\Models\UploadedResume;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -18,6 +20,8 @@ class HomeController extends Controller
     }
 
     public function Applied_Status(){
-        
+        $userId = Auth::id();
+        $all_resume = UploadedResume::where('user_id',$userId);
+        return view('applied-status',compact('all_resume'));
     }
 }

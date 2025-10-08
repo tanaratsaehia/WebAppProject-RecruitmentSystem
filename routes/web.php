@@ -69,7 +69,7 @@ Route::middleware([
         Route::get('/home/upload-resume/{id}/view', [ResumeUploadController::class, 'view'])->name('home.upload-resume.view');
 
         // Applied Status
-        
+        Route::get('/applied-status',[HomeController::class,'Applied_Status'])->name('applied-status');
     });
 });
 
