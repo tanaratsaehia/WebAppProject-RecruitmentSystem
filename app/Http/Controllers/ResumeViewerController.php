@@ -46,7 +46,6 @@ class ResumeViewerController extends Controller
         $query = UploadedResume::query()
             ->where('job_opening_id', $selected_job_id)
             ->whereIn('resume_status', ['unread', 'marked']);
-        
         if (!empty($requiredSkillIds)) {
             $query->whereHas('searchTags', function ($q) use ($requiredSkillIds) {
                 $q->whereIn('search_tag_id', $requiredSkillIds);

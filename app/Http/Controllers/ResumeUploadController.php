@@ -105,7 +105,7 @@ class ResumeUploadController extends Controller
         $newPath = $file->storeAs('resumes', $fileName, 'private');
 
         // บันทึก DB
-        UploadedResume::updateOrCreate(
+        $new_resume = UploadedResume::updateOrCreate(
             [
                 'user_id' => $userId,
                 'job_opening_id' => $jobOpeningId,
@@ -118,6 +118,9 @@ class ResumeUploadController extends Controller
                 'apply_infomation_id' => $apply_info->id,
             ]
         );
+        if (isset($selectedSkillsIds) && !empty($selectedSkillsIds)) {
+            $new_resume->searchTags()->sync($selectedSkillsIds);
+        } 
         return back()->with('updated_resume', $file->getClientOriginalName());
     }
 
