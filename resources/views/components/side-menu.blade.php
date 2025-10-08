@@ -24,8 +24,8 @@
             </a>
         </div>
         @if (auth()->user()->role == "user")
-            <div class="w-100 ps-2 mt-2">
-                <a href="#" class="p-0 m-0 w-100">
+            <div class="{{ request()->routeIs('Applied Status') || request()->routeIs('Applied Status.*') ? 'bg-primary' : '' }} w-100 ps-2 mt-2">
+                <a href="{{ route('applied-status') }}" class="p-0 m-0 w-100">
                     <div class="h-16 d-flex align-items-center">
                         <img src="{{ asset('images/paper_icon_white.png') }}" alt="" width="9%" class="ms-3">
                         <p class="ms-3 text-2xl fs-5 text-white">Applied Status</p>
@@ -34,7 +34,7 @@
             </div>
         @endif
 
-        @if (auth()->user()->role == "hr" || auth()->user()->role == "superHR")
+        @if (auth()->user()->role == "hr")
             <div class="{{ request()->routeIs('resume-viewer') || request()->routeIs('resume-viewer.*') ? 'bg-primary' : '' }} w-100 ps-2 mt-2">
                 <a href="{{ route('resume-viewer.unread') }}" class="p-0 m-0 w-100">
                     <div class="h-16 d-flex align-items-center">
