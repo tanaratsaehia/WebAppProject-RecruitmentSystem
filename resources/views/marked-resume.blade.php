@@ -28,12 +28,13 @@
                                     class="fw-medium mb-0 me-4 text-truncate" style="max-width: 250px;">
                                     {{$resume->resume_file_name}}
                                 </a>
-                                <span class="fs-6 py-2 px-3">{{$resume->user->email}}</span>
                                 @if ($resume->score > 0)
-                                    <span class="fs-6 py-2 px-3">
-                                        Match <span class="fw-bold">{{ $resume->score }}</span>/{{ count($job_skills) }} skill
-                                    </span>
+                                <span class="fs-6 py-2 px-3">
+                                    Match <span class="fw-bold">{{ $resume->score }}</span>/{{ count($job_skills) }} skill
+                                </span>
                                 @endif
+                                <span class="fs-6 py-2 px-3">Email: {{$resume->user->email}}</span>
+                                <span class="fs-6 py-2 px-3">Telephone: {{$resume->user->phone_number ? $resume->user->phone_number : '***'}}</span>
                             </div>
                             <div class="d-flex align-items-center py-2 px-3">
                                 <p>Soft skill: {{$resume->applyInfomation->soft_skill}}</p>
