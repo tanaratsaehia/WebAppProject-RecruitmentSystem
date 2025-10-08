@@ -73,6 +73,6 @@ Route::middleware([
     });
 });
 
-Route::get('/testing', function () {
-    return view('testing');
-})->name('testing');
+// Route::get('/testing', function () {
+//     return view('testing');
+// })->name('testing');

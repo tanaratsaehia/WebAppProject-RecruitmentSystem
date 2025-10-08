@@ -22,12 +22,16 @@ class ResumeUploadController extends Controller
             ->first();
         $destroy_date = null;
         if ($uploaded) {
-            $createdAt = $uploaded->created_at;
-            $days_since_upload = $createdAt->diffInDays(Carbon::now());
-            $destroy_date = $createdAt->copy()->addDays(180); 
-            if ($days_since_upload > 180) {
-                $this->destroy($id);
-                return $this->showUploadForm($id);
+            if ($uploaded->resume_status != "accepted"){
+                $createdAt = $uploaded->created_at;
+                $days_since_upload = $createdAt->diffInDays(Carbon::now());
+                $destroy_date = $createdAt->copy()->addDays(180);  // 6 month
+                if ($days_since_upload > 180) {
+                    $this->destroy($id);
+                    return $this->showUploadForm($id);
+                }
+            }else{
+                $destroy_date = "Your application has been accepted.";
             }
         }
         

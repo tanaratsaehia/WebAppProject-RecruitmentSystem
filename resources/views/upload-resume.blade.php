@@ -35,8 +35,10 @@
 
             <div class="card m-md-4" style="width: 70rem;">
                 <h1 class="fs-1 fw-bold pt-3">Apply here</h1>
-                @if ($destroy_date)
+                @if ($destroy_date && $destroy_date != "Your application has been accepted.")
                     <p class="text-danger fw-bold">**You can reapply after {{$destroy_date}}</p>
+                @else 
+                    <p class="text-success fw-bold fs-5 mt-1">{{$destroy_date}}</p>
                 @endif
                 @if(empty($uploaded) or empty($uploaded->resume_path))
                     <form id="resume-form"
@@ -52,13 +54,13 @@
                                     <input class="d-flex justify-content-start w-100 form-control @error('Email') is-invalid @enderror" type="email" name="Email" id="Email" value="{{ auth()->user()->email }}" autocomplete="email" required>
                                 </div>
                                 <div class="col mx-3">
-                                    <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Tel</label>
+                                    <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Phone number</label>
                                     <input class="d-flex justify-content-start w-100 form-control @error('Tel') is-invalid @enderror" type="tel" name="Tel" id="Tel" value="{{ auth()->user()->phone_number }}" autocomplete="tel" pattern="[0-9]{10}" required>
                                 </div>
                             </div>
                             <div class="p-3 flex flex-row align-items-center">
                                 <div class="col mx-3">
-                                    <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Solf Skills</label>
+                                    <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Soft Skills</label>
                                     <textarea name="soft_skill" id="Solf-Skill-Input" class="form-control" placeholder="Solf Skills required here..." required>{{ $lateInfo ? $lateInfo->soft_skill : '' }}</textarea>
                                 </div>
                                 <div class="col mx-3">

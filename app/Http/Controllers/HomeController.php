@@ -16,6 +16,9 @@ class HomeController extends Controller
 
     public function indexWithOutLogin() {
         $all_job_opening = JobOpening::all();
+        if (Auth::check()) {
+            return redirect()->route("home", compact("all_job_opening"));
+        }
         return view('home-with-out-login', compact("all_job_opening"));
     }
 
