@@ -18,7 +18,7 @@
                             <textarea name="jobDescription" type="text" class="form-control h-50" id="jobDescriptionInput" required>{{$job_for_edit->description}}</textarea>
                         </div>
                         <div class="col">
-                            <label for="requiredSkills">Required skills</label>
+                            <label for="requiredSkills">Preferred Skills & Qualifications</label>
                             <?php $correct_string= str_replace('\n', "\n", $job_for_edit->skill_required); ?>
                             <textarea id="requiredSkills" class="w-100 h-100" name="requiredSkills" placeholder="Type skills required here..." required><?php echo $correct_string; ?></textarea>
                         </div>
@@ -43,7 +43,7 @@
                             <textarea name="jobDescription" type="text" class="form-control h-50" id="jobDescriptionInput" required></textarea>
                         </div>
                         <div class="col">
-                            <label for="requiredSkills">Required skills</label>
+                            <label for="requiredSkills">Preferred Skills & Qualifications</label>
                             <textarea id="requiredSkills" class="w-100 h-100" name="requiredSkills" placeholder="Type skills required here..." required></textarea>
                         </div>
                     </div>

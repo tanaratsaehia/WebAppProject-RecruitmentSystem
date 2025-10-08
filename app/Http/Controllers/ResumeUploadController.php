@@ -24,8 +24,8 @@ class ResumeUploadController extends Controller
         if ($uploaded) {
             $createdAt = $uploaded->created_at;
             $days_since_upload = $createdAt->diffInDays(Carbon::now());
-            $destroy_date = $createdAt->copy()->addDays(60); 
-            if ($days_since_upload > 60) {
+            $destroy_date = $createdAt->copy()->addDays(180); 
+            if ($days_since_upload > 180) {
                 $this->destroy($id);
                 return $this->showUploadForm($id);
             }
@@ -50,7 +50,7 @@ class ResumeUploadController extends Controller
     }
 
     // อัปโหลดไฟล์ PDF (Private Disk)
-   public function upload(Request $request, $jobOpeningId)
+    public function upload(Request $request, $jobOpeningId)
     {
         $request->validate([
             'resume' => 'required|mimes:pdf|max:3072',

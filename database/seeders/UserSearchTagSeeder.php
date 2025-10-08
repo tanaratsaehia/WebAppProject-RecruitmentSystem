@@ -14,11 +14,11 @@ class UserSearchTagSeeder extends Seeder
      */
     public function run(): void
     {
-        $user1 = User::find(1);
-        $user2 = User::find(2);
-        $user3 = User::find(3);
-        $user4 = User::find(4);
-        $user5 = User::find(5);
+        $user1 = User::find(3);
+        $user2 = User::find(4);
+        $user3 = User::find(5);
+        $user4 = User::find(6);
+        $user5 = User::find(7);
         $tag1 = SearchTag::where('name', 'Java')->first();
         $tag2 = SearchTag::where('name', 'Spring Boot')->first();
         $tag3 = SearchTag::where('name', 'Firebase')->first();

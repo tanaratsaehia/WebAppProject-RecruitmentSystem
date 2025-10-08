@@ -3,24 +3,39 @@
 ?>
 
 <x-app-layout>
-    <x-slot name="header">
-        <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Applied Status') }}
-        </h1>
-    </x-slot>
     <main>
-        <h1>Status</h1>
         <div class="container">
-            @foreach ($all_resume as $resume)
-                <div class="card">
-                    <div>
-                        <h2>{{}}</h2>
+            <!-- <p class="text-2xl mt-5 font-medium fs-2 fw-bold mb-2">Applied</p> -->
+            @forelse ($all_resume as $resume)
+                <div class="border border-dark rounded-2 p-2 my-4">
+                    <p class="text-2xl mt-1 font-medium fs-5 fw-bold mb-2">{{$resume->jobOpening->job_title}}</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img src="{{ asset('images/pdf_icon.png') }}" alt="PDF" class="me-3" style="width: 25px; height: 30px;">
+                            <a href="{{ route('home.upload-resume.view', ['id' => $resume->job_opening_id]) }}"
+                                class="fw-medium mb-0 me-4 text-truncate" style="max-width: 250px;">
+                                {{$resume->resume_file_name}}
+                            </a>
+                        </div>
+                        <div class="d-flex align-items-center py-2 px-3">
+                            <p>Your soft skill: {{$resume->applyInfomation->soft_skill}}</p>
+                        </div>
+                        <div class="d-flex align-items-center ms-auto me-5" style="width: 15%;">
+                            @if ($resume->resume_status == "accepted")
+                                <p class="p-1 w-100 rounded fs-5 bg-success text-white text-center">Accepted</p>
+                            @elseif ($resume->resume_status == "rejected")
+                                <p class="p-1 w-100 rounded fs-5 bg-danger text-white text-center">Rejected</p>
+                            @else
+                                <p class="p-1 w-100 rounded fs-5 bg-info text-white text-center">Waiting Response</p>
+                            @endif
+                        </div>
                     </div>
-                    <div>
-                        <p></p>
-                    </div>
-                </div>            
-            @endforeach
+                    <hr class="my-2 mx-2">
+                    <p>Your purpose: {{$resume->applyInfomation->applying_purpose}}</p>
+                </div>  
+            @empty
+                <p class="text-2xl mt-1 font-medium fs-5 fw-bold mb-2">Apply us!</p>
+            @endforelse
         </div>
     </main>
 </x-app-layout>

@@ -49,11 +49,11 @@
                             <div class="p-3 flex flex-row align-items-center">
                                 <div class="col mx-3">
                                     <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Email</label>
-                                    <input class="d-flex justify-content-start w-100" type="email" name="Email" id="Email" value="{{ auth()->user()->email }}" autocomplete="email" required>
+                                    <input class="d-flex justify-content-start w-100 form-control @error('Email') is-invalid @enderror" type="email" name="Email" id="Email" value="{{ auth()->user()->email }}" autocomplete="email" required>
                                 </div>
                                 <div class="col mx-3">
                                     <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Tel</label>
-                                    <input class="d-flex justify-content-start w-100" type="tel" name="Tel" id="Tel" value="{{ auth()->user()->phone_number }}" autocomplete="tel" pattern="[0-9]{10}" required>
+                                    <input class="d-flex justify-content-start w-100 form-control @error('Tel') is-invalid @enderror" type="tel" name="Tel" id="Tel" value="{{ auth()->user()->phone_number }}" autocomplete="tel" pattern="[0-9]{10}" required>
                                 </div>
                             </div>
                             <div class="p-3 flex flex-row align-items-center">
@@ -69,7 +69,7 @@
                         </div>
                         <div class="card m-md-4 me-auto">
                             <label for="exampleSelect" class="form-label fw-semibold fs-5 text-start mx-3 p-3">Skills</label>
-                            <select class="form-select text-start ps-0 pe-auto me-auto ms-0" id="exampleSelect" multiple name="skills[]">
+                            <select class="form-select text-start ps-0 pe-auto me-auto ms-0" id="exampleSelect" multiple name="skills[]" required>
                                 @php
                                     $selectedSkillIds = $user_selected_skills->pluck('id')->toArray();
                                 @endphp
@@ -157,7 +157,7 @@
                                 </div>
 
                                 {{-- ปุ่ม Download และ view --}}
-                                <div>
+                                {{-- <div>
                                     <a href="{{ route('home.upload-resume.download', ['id' => $id]) }}" class="btn btn-sm btn-primary fs-5">Download</a>
                                     <a href="{{ route('home.upload-resume.view', ['id' => $id]) }}" target="_blank" class="btn btn-sm btn-outline-primary fs-5">View</a>
                                     <form action="{{ route('home.upload-resume.delete', ['id' => $id]) }}"
@@ -167,7 +167,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger fs-5">Delete</button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </div>
                         </div>
@@ -177,6 +177,20 @@
         </div>
     </div>
     <script>
+        @error('Email')
+            Swal.fire({
+                icon: 'warning',
+                title: 'Email is already in use!',
+                showConfirmButton: "Confirm"
+            });
+        @enderror
+        @error('Tel')
+            Swal.fire({
+                icon: 'warning',
+                title: 'Phone number is already in use!',
+                showConfirmButton: "Confirm"
+            });
+        @enderror
         @if (session('updated_resume'))
             Swal.fire({
                 icon: 'success',
