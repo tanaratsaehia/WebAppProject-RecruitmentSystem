@@ -5,7 +5,6 @@
 
 <div class="mb-4 ps-5 pe-4 w-100">
     <div class="w-100">
-        <!-- <label for="jobSelect" class="form-label text-2xl mt-1 font-medium fs-4 fw-bold col-1" style="width: 5%">Job</label> -->
         <label for="jobSelect" class="form-label fw-semibold fs-5">Job</label>
         <div class="col w-100 p-0">
             <select class="form-select form-select-lg " id="jobSelect" name="job_id">

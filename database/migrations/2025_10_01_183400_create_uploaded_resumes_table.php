@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('uploaded_resumes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            // $table->foreignId('apply_infomations_id')->constrained()->onDelete('cascade');
             $table->foreignId('job_opening_id')->constrained()->onDelete('cascade');
             $table->string('resume_file_name');
-            // $table->json('ai_results')->nullable();
             $table->string('resume_status')->default('unread');
             $table->timestamps();
         });

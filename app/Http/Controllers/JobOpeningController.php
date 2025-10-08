@@ -18,10 +18,6 @@ class JobOpeningController extends Controller
         $new_job->description = $request->jobDescription;
         $new_job->skill_required = $request->requiredSkills;
         $new_job->save();
-
-        // $updated_job = $new_job;
-        // $all_job_opening = JobOpening::all();
-        // return view("edit-hiring-job", compact("all_job_opening", "updated_job"));
         return redirect()->route('edit-hiring-job')->with('updated_job_title', $request->jobTitle);
     }
 
@@ -37,11 +33,6 @@ class JobOpeningController extends Controller
         $job->description = $request->jobDescription;
         $job->skill_required = $request->requiredSkills;
         $job->save();
-
-        // $updated_job = JobOpening::find($request->id);
-        // $all_job_opening = JobOpening::all();
-        // return view("edit-hiring-job", compact("all_job_opening", "updated_job"));
-
         return redirect()->route('edit-hiring-job')->with('updated_job_title', $request->jobTitle);
     }
 
@@ -49,9 +40,6 @@ class JobOpeningController extends Controller
         $job = JobOpening::findOrFail($id);
         $jobTitle = $job->job_title;
         $job->delete();
-        // $all_job_opening = JobOpening::all();
-        // return view("edit-hiring-job", compact("all_job_opening"));
-        // return redirect()->route('edit-hiring-job');
         return redirect()->route('edit-hiring-job')->with('deleted_job_title', $jobTitle);
     }
 }

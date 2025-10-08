@@ -5,7 +5,6 @@
             <p class="ms-3 text-2xl fs-4 text-white">Recruitment System</p>
         </div>
     </div>
-    <!-- if same route name -->
     <div class="p-0 mt-5 w-100">
         <div class="{{ request()->routeIs('home*') ? 'bg-primary' : '' }} w-100 ps-2">
             <a href="{{ route('home') }}" class="p-0 m-0 w-100">
@@ -25,7 +24,6 @@
                 </a>
             </div>
         @endif
-
         @if (auth()->user()->role == "hr")
             <div class="{{ request()->routeIs('resume-viewer') || request()->routeIs('resume-viewer.*') ? 'bg-primary' : '' }} w-100 ps-2 mt-2">
                 <a href="{{ route('resume-viewer.unread') }}" class="p-0 m-0 w-100">
