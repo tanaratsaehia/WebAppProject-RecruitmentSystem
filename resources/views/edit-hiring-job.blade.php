@@ -78,7 +78,6 @@
                 </div>
             @empty
                 <p class="font-medium text-danger fw-bold mt-3">--- No opening job ---</p>
-                <!-- <p class="text-5xl font-medium text-warning mt-2">*** You can run seeder with "php artisan migrate:fresh --seed" ***</p> -->
             @endforelse
         </div>
     </div>

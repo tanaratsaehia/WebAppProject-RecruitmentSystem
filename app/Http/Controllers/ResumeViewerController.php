@@ -11,7 +11,6 @@ use Illuminate\Support\Collection;
 class ResumeViewerController extends Controller
 {
     public function index(){
-        // return view('resume-viewer');
         return redirect()->route('resume-viewer.unread'); 
     }
 
@@ -35,12 +34,10 @@ class ResumeViewerController extends Controller
             if ($jobToUpdate) {
                 $jobToUpdate->searchTags()->sync($selectedSkillsIds);
             }
-            // return redirect()->route('resume-viewer.unread', ['id' => $selected_job_id]);
         }
 
         $selected_job = JobOpening::find($selected_job_id);
         $job_skills = $selected_job ? $selected_job->searchTags : collect();
-        // $selectedSkillNames = $job_skills->pluck('name')->toArray();
         $requiredSkillIds = $job_skills->pluck('id')->toArray();
 
         $query = UploadedResume::query()

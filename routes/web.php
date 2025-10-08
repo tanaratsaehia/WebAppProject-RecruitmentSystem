@@ -15,13 +15,6 @@ use App\Http\Controllers\ResumeUploadController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// session_start();
-
-/*Route::get('/', function () {
-    return view('welcome');
-    //return redirect()->route(route: 'home'); 
-    //return view('home-with-out-login');
-})->name('welcome');*/
 
 Route::get('/',[HomeController::class,'indexWithOutLogin'])->name('welcome');
 
@@ -36,10 +29,6 @@ Route::middleware([
     })->name('dashboard');
     // home
     Route::get('/home', [HomeController::class,'index'])->name("home");
-
-    // Route::middleware(['role:superHR'])->group(function () {
-    //     // Route::get('/admin', [::class,'index'])->name("admin");
-    // });
 
     Route::middleware(['role:hr'])->group(function () {
         // edit hiring job
@@ -72,7 +61,3 @@ Route::middleware([
         Route::get('/applied-status',[HomeController::class,'Applied_Status'])->name('applied-status');
     });
 });
-
-// Route::get('/testing', function () {
-//     return view('testing');
-// })->name('testing');

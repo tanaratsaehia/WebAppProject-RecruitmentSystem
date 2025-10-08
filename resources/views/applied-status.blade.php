@@ -5,7 +5,6 @@
 <x-app-layout>
     <main>
         <div class="container">
-            <!-- <p class="text-2xl mt-5 font-medium fs-2 fw-bold mb-2">Applied</p> -->
             @forelse ($all_resume as $resume)
                 <div class="border border-dark rounded-2 p-2 my-4">
                     <p class="text-2xl mt-1 font-medium fs-5 fw-bold mb-2">{{$resume->jobOpening->job_title}}</p>
