@@ -23,7 +23,6 @@
                             Preferred Skills & Qualifications:
                         </h3>
                         <ul class="list-group list-group-flush">
-                            <!-- <li class="list-group-item">● {skill_required}</li> -->
                             <?php $correct_string = str_replace('\n', "\n", $item->skill_required); ?>
                             @foreach (array_filter(explode("\n", $correct_string)) as $skill)
                                 <li class="list-group-item ml-6 py-1 text-gray-700">
