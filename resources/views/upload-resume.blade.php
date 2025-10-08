@@ -35,6 +35,9 @@
 
             <div class="card m-md-4" style="width: 70rem;">
                 <h1 class="fs-1 fw-bold pt-3">Apply here</h1>
+                @if ($destroy_date)
+                    <p class="text-danger fw-bold">**You can reapply after {{$destroy_date}}</p>
+                @endif
                 @if(empty($uploaded) or empty($uploaded->resume_path))
                     <form id="resume-form"
                         action="{{ route('home.upload-resume.upload', $id) }}"

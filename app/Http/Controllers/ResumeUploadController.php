@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +20,17 @@ class ResumeUploadController extends Controller
         $uploaded = UploadedResume::where('user_id', $userId)
             ->where('job_opening_id', $id)
             ->first();
+        $destroy_date = null;
+        if ($uploaded) {
+            $createdAt = $uploaded->created_at;
+            $days_since_upload = $createdAt->diffInDays(Carbon::now());
+            $destroy_date = $createdAt->copy()->addDays(60); 
+            if ($days_since_upload > 60) {
+                $this->destroy($id);
+                return $this->showUploadForm($id);
+            }
+        }
+        
         $item = JobOpening::where('id',$id)->first();
         $all_skills = SearchTag::all();
 
@@ -34,6 +45,7 @@ class ResumeUploadController extends Controller
             'lateInfo' => $lastInfo,
             'all_skills' => $all_skills,
             'user_selected_skills' => $user_selected_skills,
+            'destroy_date' => $destroy_date,
         ]);
     }
 
@@ -74,7 +86,6 @@ class ResumeUploadController extends Controller
         $applyingPurpose = $request->input('applying_purpose');
 
         $selectedSkillsIds = $request->input('skills',[]);
-
         $user_data = User::find($userId);
 
         if ($user_data) {
@@ -85,7 +96,6 @@ class ResumeUploadController extends Controller
         $user->email = $email;
         $user->phone_number = $tel;
         $user->save();
-
         $searchAttributes = [
             'user_id' => $userId,
             'soft_skill' => $softSkill,
@@ -143,10 +153,12 @@ class ResumeUploadController extends Controller
 
             $resume->delete();
 
-            return redirect()->back()->with('deleted_resume', $resumeName);
+            // return back()->with('deleted_resume', $resumeName);
+            // return $this->showUploadForm($jobOpeningId); 
         }
 
-        return redirect()->back()->with('error', 'ไม่พบไฟล์ที่จะลบ');
+        // return back()->with('error', 'ไม่พบไฟล์ที่จะลบ');
+        // return $this->showUploadForm($jobOpeningId); 
     }
 
 
