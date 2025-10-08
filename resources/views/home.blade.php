@@ -1,7 +1,6 @@
 <?php
     $_SESSION['currentPage'] = "Home";
 ?>
-
 <x-app-layout>
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -45,7 +44,15 @@
     </div>
 
 </x-app-layout>
-
+<script>
+    @if (session('not_allowed'))
+        Swal.fire({
+            icon: 'warning',
+            title: 'Page not allow!',
+            confirmButtonText: "OK",
+        });
+    @endif
+</script>
 <?php
     $_SESSION['currentPage'] = null;
 ?>
