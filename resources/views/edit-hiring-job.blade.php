@@ -89,16 +89,16 @@
         Swal.fire({
             icon: 'success',
             title: 'Success!',
-            html: 'บันทึกงาน <strong>{{session('updated_job_title')}}</strong> เรียบร้อยแล้ว',
-            confirmButtonText: "ยืนยัน",
+            html: 'Job <strong>{{session('updated_job_title')}}</strong> has been saved successfully.',
+            confirmButtonText: "Confirm",
         });
     @endif
     @if (session('deleted_job_title'))
         Swal.fire({
             icon: 'success',
             title: 'Success!',
-            html: '<strong class="text-danger">ลบข้อมูล</strong>งาน <strong>{{session('deleted_job_title')}}</strong> เรียบร้อยแล้ว',
-            confirmButtonText: "ยืนยัน",
+            html: 'Job <strong class="text-danger">{{session('deleted_job_title')}}</strong> has been deleted successfully.',
+            confirmButtonText: "Confirm",
         });
     @endif
 
@@ -115,14 +115,14 @@
                 }
                 
                 Swal.fire({
-                    title: "บันทึกการเปลี่ยนแปลง?",
-                    text: "คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่",
+                    title: "Save changes?",
+                    text: "Do you want to save the changes?",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "บันทึก",
-                    cancelButtonText: "ยกเลิก"
+                    confirmButtonText: "Save",
+                    cancelButtonText: "Cancel"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
@@ -140,14 +140,14 @@
             const formId = `deleteForm-${jobId}`;
 
             Swal.fire({
-                title: "ยืนยันการลบ?",
-                html: `คุณแน่ใจหรือไม่ที่จะลบงาน: <strong>${jobTitle}</strong>?`,
+                title: "Confirm Deletion?",
+                html: `Are you sure you want to delete job <strong class="text-danger">${jobTitle}</strong>?`,
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#d33",
                 cancelButtonColor: "#3085d6",
-                confirmButtonText: "ใช่, ลบทันที!",
-                cancelButtonText: "ยกเลิก"
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "Cancel"
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(formId).submit();
