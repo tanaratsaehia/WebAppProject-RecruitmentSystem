@@ -65,7 +65,7 @@
                             <img src="{{ asset('images/yellow_pencil.png') }}" alt="Edit" style="width: 25px; height: 25px;">
                         </a>
                         <span class="border-end border-secondary mx-2 align-self-stretch" style="width: 4px;"></span>
-                        <form id="deleteForm-{{ $item->id }}" action="{{ route('edit-hiring-job.delete', $item->id) }}" method="post" style="display:inline;">
+                        <form id="deleteForm-{{ $item->id }}" action="{{ route('edit-hiring-job.delete', $item->id) }}" method="get" style="display:inline;">
                             @csrf
                             <button type="button" 
                                     class="btn p-0 bg-transparent border-0 delete-job-btn ms-3 me-2" 

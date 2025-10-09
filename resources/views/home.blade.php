@@ -31,9 +31,15 @@
                             @endforeach
                         </ul>
 
-                        <div class="col-12 d-flex justify-content-center mt-3">
-                            <a href="{{ route('home.upload-resume.form', $item->id) }}" class="btn btn-outline-primary border-dark text-dark col-12 fw-bold fs-5">Apply Now</a>
-                        </div>
+                        @if (auth()->user()->role == "hr")
+                            <div class="col-12 d-flex justify-content-center mt-3">
+                                <a href="{{ route('edit-hiring-job.edit', $item->id) }} }}" class="btn btn-outline-primary border-dark text-dark col-12 fw-bold fs-5">Edit</a>
+                            </div>
+                        @else
+                            <div class="col-12 d-flex justify-content-center mt-3">
+                                <a href="{{ route('home.upload-resume.form', $item->id) }}" class="btn btn-outline-primary border-dark text-dark col-12 fw-bold fs-5">Apply Now</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             @empty
