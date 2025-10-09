@@ -37,13 +37,13 @@
                     @csrf 
                     <div class="row ">
                         <div class="col-5">
-                            <label for="jobTitleInput" class="form-label">Job title</label>
-                            <input name="jobTitle" type="text" class="form-control" id="jobTitleInput" required>
-                            <label for="jobDescriptionInput" class="form-label mt-2">Job description</label>
-                            <textarea name="jobDescription" type="text" class="form-control h-50" id="jobDescriptionInput" required></textarea>
+                            <label for="jobTitleInput" class="form-label">Job title <span class="text-danger">*</span></label>
+                            <input name="jobTitle" type="text" class="form-control" placeholder="Type new job title here..." id="jobTitleInput" required>
+                            <label for="jobDescriptionInput" class="form-label mt-2">Job description <span class="text-danger">*</span></label>
+                            <textarea name="jobDescription" type="text" class="form-control h-50" placeholder="Type description here..." id="jobDescriptionInput" required></textarea>
                         </div>
                         <div class="col">
-                            <label for="requiredSkills">Preferred Skills & Qualifications</label>
+                            <label for="requiredSkills">Preferred Skills & Qualifications <span class="text-danger">*</span></label>
                             <textarea id="requiredSkills" class="w-100 h-100" name="requiredSkills" placeholder="Type skills required here..." required></textarea>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                             <img src="{{ asset('images/yellow_pencil.png') }}" alt="Edit" style="width: 25px; height: 25px;">
                         </a>
                         <span class="border-end border-secondary mx-2 align-self-stretch" style="width: 4px;"></span>
-                        <form id="deleteForm-{{ $item->id }}" action="{{ route('edit-hiring-job.delete', $item->id) }}" method="get" style="display:inline;">
+                        <form id="deleteForm-{{ $item->id }}" action="{{ route('edit-hiring-job.delete', $item->id) }}" method="post" style="display:inline;">
                             @csrf
                             <button type="button" 
                                     class="btn p-0 bg-transparent border-0 delete-job-btn ms-3 me-2" 
