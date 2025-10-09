@@ -49,27 +49,27 @@
                         <div>
                             <div class="p-3 flex flex-row align-items-center">
                                 <div class="col mx-3">
-                                    <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Email <p class="text-danger">*</p></label>
+                                    <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Email <span class="text-danger">*</span></label>
                                     <input class="d-flex justify-content-start w-100 form-control @error('Email') is-invalid @enderror" type="email" name="Email" id="Email" value="{{ auth()->user()->email }}" autocomplete="email" required>
                                 </div>
                                 <div class="col mx-3">
-                                    <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Phone number<p class="text-danger">*</p></label></label>
+                                    <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Phone number <span class="text-danger">*</span></label></label>
                                     <input class="d-flex justify-content-start w-100 form-control @error('Tel') is-invalid @enderror" type="tel" name="Tel" id="Tel" value="{{ auth()->user()->phone_number }}" autocomplete="tel" pattern="[0-9]{10}" maxlength="10" minlength="10" placeholder="Please enter a 10-digit phone number" required>
                                 </div>
                             </div>
                             <div class="p-3 flex flex-row align-items-center">
                                 <div class="col mx-3">
-                                    <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Soft Skills <p class="text-danger">*</p></label>
+                                    <label for="Solf-Skill-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Soft Skills <span class="text-danger">*</span></label>
                                     <textarea name="soft_skill" id="Solf-Skill-Input" class="form-control" placeholder="Solf Skills required here..." required>{{ $lateInfo ? $lateInfo->soft_skill : '' }}</textarea>
                                 </div>
                                 <div class="col mx-3">
-                                    <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Apply Purpose <p class="text-danger">*</p></label>
+                                    <label for="Applying-Purpose-Input" class="form-label d-flex justify-content-start ms-3 fs-5">Apply Purpose <span class="text-danger">*</span></label>
                                     <textarea name="applying_purpose" id="Applying-Purpose" class="form-control" placeholder="Applying Purpose required here..." required>{{ $lateInfo ? $lateInfo->applying_purpose : '' }}</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="card m-md-4 me-auto">
-                            <label for="exampleSelect" class="form-label fw-semibold fs-5 text-start mx-3 p-3">Skills</label>
+                            <label for="exampleSelect" class="form-label fw-semibold fs-5 text-start mx-3 p-3">Skills <span class="text-danger">*</span></label>
                             <select class="form-select text-start ps-0 pe-auto me-auto ms-0" id="exampleSelect" multiple name="skills[]" required>
                                 @php
                                     $selectedSkillIds = $user_selected_skills->pluck('id')->toArray();
