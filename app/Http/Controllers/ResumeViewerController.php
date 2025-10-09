@@ -28,9 +28,7 @@ class ResumeViewerController extends Controller
 
         if ($request->isMethod('post')) {
             $selectedSkillsIds = $request->input('skills', []);
-            
             $jobToUpdate = JobOpening::find($selected_job_id);
-
             if ($jobToUpdate) {
                 $jobToUpdate->searchTags()->sync($selectedSkillsIds);
             }
@@ -72,7 +70,6 @@ class ResumeViewerController extends Controller
             $matches = array_intersect($resumeSkillIds, $requiredSkillIds);
             $score = count($matches);
             $resume->score = $score;
-            $resume->matched_skills = $score;
             return $resume;
         })
         ->filter(function ($resume) {

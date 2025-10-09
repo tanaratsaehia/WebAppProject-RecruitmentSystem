@@ -12,9 +12,6 @@ use App\Models\ApplyInfomation;
 class UploadedResume extends Model
 {
     use HasFactory;
-    protected $casts = [
-        'ai_results' => 'array',
-    ];
     protected $fillable = [
         'user_id',
         'job_opening_id',
